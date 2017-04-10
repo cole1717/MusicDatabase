@@ -29,6 +29,16 @@ private slots:
 
     void on_actionCreate_Playlist_triggered();
 
+    void on_actionNew_playlist_triggered();
+
+    void on_actionEdit_playlist_triggered();
+
+    void on_actionDelete_playlist_triggered();
+
+    void create_playlist(QString playlist_name);
+    void edit_playlist(QString playlist_name);
+    void delete_playlist(QString playlist_name);
+
 private:
     Ui::MainWindow *ui;
     QSqlTableModel *model;

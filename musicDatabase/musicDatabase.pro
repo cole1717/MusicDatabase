@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = musicDatabase
 TEMPLATE = app
 
+QTPLUGIN += QSQLMYSQL
 
 SOURCES += main.cpp\
         mainwindow.cpp
@@ -20,3 +21,7 @@ HEADERS  += mainwindow.h \
     connector.h
 
 FORMS    += mainwindow.ui
+
+DISTFILES += \
+    PlaylistwindowForm.ui.qml \
+    Playlistwindow.qml

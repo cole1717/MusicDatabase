@@ -6,17 +6,28 @@
 #include <QSqlDatabase>
 #include <QSqlError>
 #include <QMessageBox>
+#include <iostream>
+
+using namespace std;
 
 static bool createConnection()
 {
+    //cout<<"Username: ";
+    //std::string username;
+//    QString username;
+    //cin>>username;
+
+
+
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    db.setHostName("localhost:3306");
-    db.setDatabaseName("starwarsfinal");
+    db.setHostName("localhost");
+    db.setPort(3306);
+    db.setDatabaseName("music");
     db.setUserName("root");
     db.setPassword("Dodgerthedog12");
     if (!db.open())
     {
-        QMessageBox::warning(0, "Error", "Unable to connect to the database");
+        QMessageBox::warning(0, "Error", db.lastError().text());
         return false;
     }
     return true;

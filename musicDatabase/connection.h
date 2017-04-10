@@ -47,6 +47,8 @@
 #include <QSqlError>
 #include <QSqlQuery>
 
+#include <iostream>
+
 /*
     This file defines a helper function to open a connection to an
     in-memory SQLITE database and to create a test table.

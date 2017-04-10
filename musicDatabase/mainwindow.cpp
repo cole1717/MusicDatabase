@@ -98,11 +98,66 @@ void MainWindow::deleteRow(int index)
 
 void MainWindow::on_actionCreate_Playlist_triggered()
 {
-    QSqlQuery query;
-    query.exec("select COUNT(*) from person");
+    /*QSqlQuery query;
+    QSqlRecord record;
+    query.exec("SELECT count(*) from artists");
+    query.next();
+    record = query.record();
 
-    while(query.next()) {
-    QMessageBox::warning(this, tr("music player"),
-                         query.value(0).toString());
-    }
+    QMessageBox::warning(this, tr("???"), record.value(0).toString());*/
+    bool ok;
+    QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
+                                                  tr("Playlist name:"), QLineEdit::Normal,
+                                                  QDir::home().dirName(), &ok);
+    if (ok && !playlist_name.isEmpty())
+        create_playlist(playlist_name);
+}
+
+void MainWindow::create_playlist(QString playlist_name)
+{
+    QSqlQuery query;
+    QString exec_string;
+    exec_string = "insert into person values(106, '" + playlist_name +
+            "', 'Doe')";
+    query.exec(exec_string);
+}
+
+void MainWindow::on_actionNew_playlist_triggered()
+{
+    bool ok;
+    QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
+                                                  tr("Playlist name:"), QLineEdit::Normal,
+                                                  QDir::home().dirName(), &ok);
+    if (ok && !playlist_name.isEmpty())
+        create_playlist(playlist_name);
+}
+
+void MainWindow::edit_playlist(QString playlist_name)
+{
+
+}
+
+void MainWindow::on_actionEdit_playlist_triggered()
+{
+    bool ok;
+    QString playlist_name = QInputDialog::getText(this, tr("Edit Playlist"),
+                                                  tr("Playlist name:"), QLineEdit::Normal,
+                                                  QDir::home().dirName(), &ok);
+    if (ok && !playlist_name.isEmpty())
+        edit_playlist(playlist_name);
+}
+
+void MainWindow::delete_playlist(QString playlist_name)
+{
+
+}
+
+void MainWindow::on_actionDelete_playlist_triggered()
+{
+    bool ok;
+    QString playlist_name = QInputDialog::getText(this, tr("Delete Playlist"),
+                                                  tr("Playlist name:"), QLineEdit::Normal,
+                                                  QDir::home().dirName(), &ok);
+    if (ok && !playlist_name.isEmpty())
+        delete_playlist(playlist_name);
 }

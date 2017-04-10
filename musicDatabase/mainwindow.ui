@@ -183,8 +183,8 @@
   <action name="actionPlay">
    <property name="icon">
     <iconset>
-     <normaloff>../play.png</normaloff>
-     <normalon>../pause.png</normalon>../play.png</iconset>
+     <normaloff>play.png</normaloff>
+     <normalon>pause.png</normalon>play.png</iconset>
    </property>
    <property name="text">
     <string>Play</string>
@@ -193,7 +193,7 @@
   <action name="actionReverse">
    <property name="icon">
     <iconset>
-     <normaloff>../rewind.png</normaloff>../rewind.png</iconset>
+     <normaloff>rewind.png</normaloff>rewind.png</iconset>
    </property>
    <property name="text">
     <string>Reverse</string>
@@ -202,7 +202,7 @@
   <action name="actionForward">
    <property name="icon">
     <iconset>
-     <normaloff>../fast_forward.png</normaloff>../fast_forward.png</iconset>
+     <normaloff>fast_forward.png</normaloff>fast_forward.png</iconset>
    </property>
    <property name="text">
     <string>Forward</string>
