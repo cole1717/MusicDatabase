@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>570</width>
-    <height>541</height>
+    <width>524</width>
+    <height>620</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="searchBox">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -24,10 +24,10 @@
      </rect>
     </property>
     <property name="text">
-     <string>Search</string>
+     <string/>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton">
+   <widget class="QRadioButton" name="artistRadioButton">
     <property name="geometry">
      <rect>
       <x>130</x>
@@ -40,7 +40,7 @@
      <string>Artist</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_2">
+   <widget class="QRadioButton" name="albumRadioButton">
     <property name="geometry">
      <rect>
       <x>190</x>
@@ -53,7 +53,7 @@
      <string>Album</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_3">
+   <widget class="QRadioButton" name="songRadioButton">
     <property name="geometry">
      <rect>
       <x>260</x>
@@ -66,7 +66,7 @@
      <string>Song</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton_4">
+   <widget class="QRadioButton" name="genreRadioButton">
     <property name="geometry">
      <rect>
       <x>320</x>
@@ -79,13 +79,36 @@
      <string>Genre</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit">
+   <widget class="QPushButton" name="searchButton">
+    <property name="geometry">
+     <rect>
+      <x>390</x>
+      <y>10</y>
+      <width>93</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Search</string>
+    </property>
+   </widget>
+   <widget class="QTableView" name="tableView">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>50</y>
-      <width>541</width>
-      <height>381</height>
+      <y>40</y>
+      <width>501</width>
+      <height>231</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QTableView" name="resultsView">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>280</y>
+      <width>501</width>
+      <height>241</height>
      </rect>
     </property>
    </widget>
@@ -95,7 +118,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>570</width>
+     <width>524</width>
      <height>26</height>
     </rect>
    </property>
@@ -128,7 +151,7 @@
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>true</bool>
+    <bool>false</bool>
    </attribute>
    <addaction name="actionReverse"/>
    <addaction name="actionPlay"/>
@@ -160,8 +183,8 @@
   <action name="actionPlay">
    <property name="icon">
     <iconset>
-     <normaloff>../play-button.jpg</normaloff>
-     <normalon>../pause-button.jpg</normalon>../play-button.jpg</iconset>
+     <normaloff>../play.png</normaloff>
+     <normalon>../pause.png</normalon>../play.png</iconset>
    </property>
    <property name="text">
     <string>Play</string>
@@ -170,7 +193,7 @@
   <action name="actionReverse">
    <property name="icon">
     <iconset>
-     <normaloff>../rewind-button.jpg</normaloff>../rewind-button.jpg</iconset>
+     <normaloff>../rewind.png</normaloff>../rewind.png</iconset>
    </property>
    <property name="text">
     <string>Reverse</string>
@@ -179,7 +202,7 @@
   <action name="actionForward">
    <property name="icon">
     <iconset>
-     <normaloff>../next-button.jpg</normaloff>../next-button.jpg</iconset>
+     <normaloff>../fast_forward.png</normaloff>../fast_forward.png</iconset>
    </property>
    <property name="text">
     <string>Forward</string>

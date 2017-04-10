@@ -18,9 +18,10 @@
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenu>
 #include <QtWidgets/QMenuBar>
+#include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
 #include <QtWidgets/QStatusBar>
-#include <QtWidgets/QTextEdit>
+#include <QtWidgets/QTableView>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
 
@@ -40,12 +41,14 @@ public:
     QAction *actionAbout;
     QAction *actionCreate_Playlist;
     QWidget *centralWidget;
-    QLineEdit *lineEdit;
-    QRadioButton *radioButton;
-    QRadioButton *radioButton_2;
-    QRadioButton *radioButton_3;
-    QRadioButton *radioButton_4;
-    QTextEdit *textEdit;
+    QLineEdit *searchBox;
+    QRadioButton *artistRadioButton;
+    QRadioButton *albumRadioButton;
+    QRadioButton *songRadioButton;
+    QRadioButton *genreRadioButton;
+    QPushButton *searchButton;
+    QTableView *tableView;
+    QTableView *resultsView;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -56,7 +59,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(570, 541);
+        MainWindow->resize(524, 620);
         actionNew_playlist = new QAction(MainWindow);
         actionNew_playlist->setObjectName(QStringLiteral("actionNew_playlist"));
         actionEdit_playlist = new QAction(MainWindow);
@@ -68,18 +71,18 @@ public:
         actionPlay = new QAction(MainWindow);
         actionPlay->setObjectName(QStringLiteral("actionPlay"));
         QIcon icon;
-        icon.addFile(QStringLiteral("../play-button.jpg"), QSize(), QIcon::Normal, QIcon::Off);
-        icon.addFile(QStringLiteral("../pause-button.jpg"), QSize(), QIcon::Normal, QIcon::On);
+        icon.addFile(QStringLiteral("../play.png"), QSize(), QIcon::Normal, QIcon::Off);
+        icon.addFile(QStringLiteral("../pause.png"), QSize(), QIcon::Normal, QIcon::On);
         actionPlay->setIcon(icon);
         actionReverse = new QAction(MainWindow);
         actionReverse->setObjectName(QStringLiteral("actionReverse"));
         QIcon icon1;
-        icon1.addFile(QStringLiteral("../rewind-button.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        icon1.addFile(QStringLiteral("../rewind.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionReverse->setIcon(icon1);
         actionForward = new QAction(MainWindow);
         actionForward->setObjectName(QStringLiteral("actionForward"));
         QIcon icon2;
-        icon2.addFile(QStringLiteral("../next-button.jpg"), QSize(), QIcon::Normal, QIcon::Off);
+        icon2.addFile(QStringLiteral("../fast_forward.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionForward->setIcon(icon2);
         actionHelp = new QAction(MainWindow);
         actionHelp->setObjectName(QStringLiteral("actionHelp"));
@@ -89,28 +92,34 @@ public:
         actionCreate_Playlist->setObjectName(QStringLiteral("actionCreate_Playlist"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        lineEdit = new QLineEdit(centralWidget);
-        lineEdit->setObjectName(QStringLiteral("lineEdit"));
-        lineEdit->setGeometry(QRect(10, 10, 113, 22));
-        radioButton = new QRadioButton(centralWidget);
-        radioButton->setObjectName(QStringLiteral("radioButton"));
-        radioButton->setGeometry(QRect(130, 10, 61, 20));
-        radioButton_2 = new QRadioButton(centralWidget);
-        radioButton_2->setObjectName(QStringLiteral("radioButton_2"));
-        radioButton_2->setGeometry(QRect(190, 10, 71, 20));
-        radioButton_3 = new QRadioButton(centralWidget);
-        radioButton_3->setObjectName(QStringLiteral("radioButton_3"));
-        radioButton_3->setGeometry(QRect(260, 10, 61, 20));
-        radioButton_4 = new QRadioButton(centralWidget);
-        radioButton_4->setObjectName(QStringLiteral("radioButton_4"));
-        radioButton_4->setGeometry(QRect(320, 10, 71, 20));
-        textEdit = new QTextEdit(centralWidget);
-        textEdit->setObjectName(QStringLiteral("textEdit"));
-        textEdit->setGeometry(QRect(10, 50, 541, 381));
+        searchBox = new QLineEdit(centralWidget);
+        searchBox->setObjectName(QStringLiteral("searchBox"));
+        searchBox->setGeometry(QRect(10, 10, 113, 22));
+        artistRadioButton = new QRadioButton(centralWidget);
+        artistRadioButton->setObjectName(QStringLiteral("artistRadioButton"));
+        artistRadioButton->setGeometry(QRect(130, 10, 61, 20));
+        albumRadioButton = new QRadioButton(centralWidget);
+        albumRadioButton->setObjectName(QStringLiteral("albumRadioButton"));
+        albumRadioButton->setGeometry(QRect(190, 10, 71, 20));
+        songRadioButton = new QRadioButton(centralWidget);
+        songRadioButton->setObjectName(QStringLiteral("songRadioButton"));
+        songRadioButton->setGeometry(QRect(260, 10, 61, 20));
+        genreRadioButton = new QRadioButton(centralWidget);
+        genreRadioButton->setObjectName(QStringLiteral("genreRadioButton"));
+        genreRadioButton->setGeometry(QRect(320, 10, 71, 20));
+        searchButton = new QPushButton(centralWidget);
+        searchButton->setObjectName(QStringLiteral("searchButton"));
+        searchButton->setGeometry(QRect(390, 10, 93, 28));
+        tableView = new QTableView(centralWidget);
+        tableView->setObjectName(QStringLiteral("tableView"));
+        tableView->setGeometry(QRect(10, 40, 501, 231));
+        resultsView = new QTableView(centralWidget);
+        resultsView->setObjectName(QStringLiteral("resultsView"));
+        resultsView->setGeometry(QRect(10, 280, 501, 241));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 570, 26));
+        menuBar->setGeometry(QRect(0, 0, 524, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -120,7 +129,6 @@ public:
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
         mainToolBar->setLayoutDirection(Qt::LeftToRight);
         MainWindow->addToolBar(Qt::TopToolBarArea, mainToolBar);
-        MainWindow->insertToolBarBreak(mainToolBar);
         statusBar = new QStatusBar(MainWindow);
         statusBar->setObjectName(QStringLiteral("statusBar"));
         MainWindow->setStatusBar(statusBar);
@@ -159,11 +167,12 @@ public:
         actionHelp->setText(QApplication::translate("MainWindow", "View help", 0));
         actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
         actionCreate_Playlist->setText(QApplication::translate("MainWindow", "Create Playlist", 0));
-        lineEdit->setText(QApplication::translate("MainWindow", "Search", 0));
-        radioButton->setText(QApplication::translate("MainWindow", "Artist", 0));
-        radioButton_2->setText(QApplication::translate("MainWindow", "Album", 0));
-        radioButton_3->setText(QApplication::translate("MainWindow", "Song", 0));
-        radioButton_4->setText(QApplication::translate("MainWindow", "Genre", 0));
+        searchBox->setText(QString());
+        artistRadioButton->setText(QApplication::translate("MainWindow", "Artist", 0));
+        albumRadioButton->setText(QApplication::translate("MainWindow", "Album", 0));
+        songRadioButton->setText(QApplication::translate("MainWindow", "Song", 0));
+        genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", 0));
+        searchButton->setText(QApplication::translate("MainWindow", "Search", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
     } // retranslateUi
