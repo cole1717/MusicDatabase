@@ -24,7 +24,7 @@ static bool createConnection()
     db.setPort(3306);
     db.setDatabaseName("music");
     db.setUserName("root");
-    db.setPassword("Dodgerthedog12");
+    db.setPassword("fortytwo");
     if (!db.open())
     {
         QMessageBox::warning(0, "Error", db.lastError().text());
