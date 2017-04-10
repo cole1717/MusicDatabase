@@ -19,21 +19,21 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->searchBox->setFocus();
 
     results = new QSqlTableModel(this);
-    results->setTable("person");
+    results->setTable("artists");
     results->setEditStrategy(QSqlTableModel::OnManualSubmit);
     results->setHeaderData(0, Qt::Horizontal, tr("ID"));
     results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
-    results->setHeaderData(2, Qt::Horizontal, tr("Album"));
+    //results->setHeaderData(2, Qt::Horizontal, tr("Album"));
     //results->select();
 
     model = new QSqlTableModel(this);
-    model->setTable("person");
+    model->setTable("artists");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
 
     model->setHeaderData(0, Qt::Horizontal, tr("ID"));
     model->setHeaderData(1, Qt::Horizontal, tr("Artist"));
-    model->setHeaderData(2, Qt::Horizontal, tr("Album"));
+    //model->setHeaderData(2, Qt::Horizontal, tr("Album"));
 
     ui->tableView->setModel(model);
     ui->tableView->setSortingEnabled(true);
@@ -72,17 +72,17 @@ void MainWindow::on_searchButton_clicked()
     QString search_value = ui->searchBox->text();
     QString search_statement;
     if (ui->artistRadioButton->isChecked()) {
-        search_statement = "select * from person where firstname = '" +
+        search_statement = "select * from artists where name = '" +
                 search_value + "'";
     } else if (ui->albumRadioButton->isChecked()) {
-        search_statement = "select * from person where lastname = '" +
+        search_statement = "select * from artists where name = '" +
                 search_value + "'";
     }
 
     QSqlQuery query;
     query.exec(search_statement);
     QSqlRecord null = query.record();
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < results->rowCount(); i++) {
         results->setRecord(i, null);
     }
     query.next();
@@ -117,8 +117,7 @@ void MainWindow::create_playlist(QString playlist_name)
 {
     QSqlQuery query;
     QString exec_string;
-    exec_string = "insert into person values(106, '" + playlist_name +
-            "', 'Doe')";
+    exec_string = "INSERT INTO playlists VALUES(DEFAULT, '" + playlist_name + "')";
     query.exec(exec_string);
 }
 
