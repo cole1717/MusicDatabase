@@ -7,6 +7,7 @@
 #include <QSqlError>
 #include <QHeaderView>
 #include <QLineEdit>
+#include <QSqlQueryModel>
 
 namespace Ui {
 class MainWindow;

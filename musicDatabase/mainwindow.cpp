@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include <QSqlQuery>
 #include <QSqlRecord>
+#include <QSqlRelationalTableModel>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,36 +12,37 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //search = new QLineEdit;
-    //search->setPlaceholderText("Search...");
-    //search->setFocus();
-
+    // Set up search box
     ui->searchBox->setPlaceholderText("Search...");
     ui->searchBox->setFocus();
 
+    // Set up results table model after table_view view
     results = new QSqlTableModel(this);
-    results->setTable("artists");
+    results->setTable("table_view");
     results->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    results->setHeaderData(0, Qt::Horizontal, tr("ID"));
-    results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
-    //results->setHeaderData(2, Qt::Horizontal, tr("Album"));
-    //results->select();
 
+    results->setHeaderData(0, Qt::Horizontal, tr("Title"));
+    results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
+    results->setHeaderData(2, Qt::Horizontal, tr("Album"));
+
+    // Set up model table model after table_view view
     model = new QSqlTableModel(this);
-    model->setTable("artists");
+    model->setTable("table_view");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
     model->select();
 
-    model->setHeaderData(0, Qt::Horizontal, tr("ID"));
+    model->setHeaderData(0, Qt::Horizontal, tr("Title"));
     model->setHeaderData(1, Qt::Horizontal, tr("Artist"));
-    //model->setHeaderData(2, Qt::Horizontal, tr("Album"));
+    model->setHeaderData(2, Qt::Horizontal, tr("Album"));
 
+    // Attach table models to table views
     ui->tableView->setModel(model);
     ui->tableView->setSortingEnabled(true);
 
     ui->resultsView->setModel(results);
     ui->resultsView->setSortingEnabled(true);
 
+    // Set title of window
     setWindowTitle(tr("Music Player"));
 }
 
@@ -69,42 +71,52 @@ void MainWindow::submit()
 
 void MainWindow::on_searchButton_clicked()
 {
+    QSqlQuery query;
     QString search_value = ui->searchBox->text();
-    QString search_statement;
+    QString search_string;
     if (ui->artistRadioButton->isChecked()) {
-        search_statement = "select * from artists where name = '" +
-                search_value + "'";
+        search_string = "Select * from table_view where artist = '" + search_value
+                + "'";
+        query.prepare(search_string);
+
+        //query.prepare("CALL artist_search(':value')");
+        //query.bindValue(":value", search_value);
     } else if (ui->albumRadioButton->isChecked()) {
-        search_statement = "select * from artists where name = '" +
-                search_value + "'";
+        query.prepare("CALL search_album(:value)");
+        query.bindValue(":value", search_value);
+    } else if (ui->songRadioButton->isChecked()) {
+        query.prepare("CALL search_song(:value)");
+        query.bindValue(":value", search_value);
+    } else if (ui->genreRadioButton->isChecked()) {
+        query.prepare("CALL search_genre(:value)");
+        query.bindValue(":value", search_value);
     }
 
-    QSqlQuery query;
-    query.exec(search_statement);
+    query.exec();
+    // Clear table view with blank entries
     QSqlRecord null = query.record();
     for (int i = 0; i < results->rowCount(); i++) {
         results->setRecord(i, null);
     }
-    query.next();
+
+    // While there are results, fill table view
     QSqlRecord record = query.record();
-    results->setRecord(0, record);
+    int index = 0;
+    while (query.next())
+    {
+        record = query.record();
+        results->setRecord(index, record);
+        index++;
+    }
 }
 
 void MainWindow::deleteRow(int index)
 {
-    //void *res = results;
-    //res->deleteRowFromTable(index);
+
 }
 
 void MainWindow::on_actionCreate_Playlist_triggered()
 {
-    /*QSqlQuery query;
-    QSqlRecord record;
-    query.exec("SELECT count(*) from artists");
-    query.next();
-    record = query.record();
-
-    QMessageBox::warning(this, tr("???"), record.value(0).toString());*/
     bool ok;
     QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
                                                   tr("Playlist name:"), QLineEdit::Normal,
