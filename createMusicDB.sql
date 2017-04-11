@@ -243,6 +243,16 @@ BEGIN
 END
 $$ DELIMITER ;
 
+
+-- ------------------------------------------------------
+-- View `table_view`
+-- ------------------------------------------------------
+CREATE VIEW table_view AS
+	SELECT tracks.name AS title, artists.name AS artist, albums.name AS album
+	FROM tracks, artists, albums
+	WHERE artists.artistId = albums.artistId
+	AND tracks.albumId = albums.albumId;
+
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('1', 'Rock');
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('2', 'Pop');
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('3', 'Country');
