@@ -245,13 +245,32 @@ $$ DELIMITER ;
 
 
 -- ------------------------------------------------------
+-- Procedure `artist_search`
+-- ------------------------------------------------------
+DROP PROCEDURE IF EXISTS artist_search;
+
+DELIMITER $$
+CREATE PROCEDURE artist_search(artist_name VARCHAR(60))
+BEGIN
+	SELECT * 
+    FROM table_view
+    WHERE artist LIKE CONCAT('%', artist_name, '%')
+    ORDER BY album;
+END
+$$ DELIMITER ;
+
+
+-- ------------------------------------------------------
 -- View `table_view`
 -- ------------------------------------------------------
+DROP VIEW IF EXISTS table_view;
+
 CREATE VIEW table_view AS
 	SELECT tracks.name AS title, artists.name AS artist, albums.name AS album
 	FROM tracks, artists, albums
 	WHERE artists.artistId = albums.artistId
-	AND tracks.albumId = albums.albumId;
+	AND tracks.albumId = albums.albumId
+    ORDER BY title ASC;
 
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('1', 'Rock');
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('2', 'Pop');

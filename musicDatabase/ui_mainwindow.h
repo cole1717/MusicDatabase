@@ -54,9 +54,9 @@ public:
     QRadioButton *genreRadioButton;
     QLineEdit *searchBox;
     QWidget *Playlists;
-    QTableView *tableView_2;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
+    QTableView *playlistTableView;
+    QPushButton *playlistAddButton;
+    QPushButton *playlistDeleteButton;
     QPushButton *pushButton_3;
     QLabel *label;
     QPushButton *pushButton_4;
@@ -136,15 +136,15 @@ public:
         tabWidget->addTab(Search, QString());
         Playlists = new QWidget();
         Playlists->setObjectName(QStringLiteral("Playlists"));
-        tableView_2 = new QTableView(Playlists);
-        tableView_2->setObjectName(QStringLiteral("tableView_2"));
-        tableView_2->setGeometry(QRect(10, 20, 481, 201));
-        pushButton = new QPushButton(Playlists);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(10, 230, 111, 28));
-        pushButton_2 = new QPushButton(Playlists);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(256, 230, 111, 28));
+        playlistTableView = new QTableView(Playlists);
+        playlistTableView->setObjectName(QStringLiteral("playlistTableView"));
+        playlistTableView->setGeometry(QRect(10, 20, 481, 201));
+        playlistAddButton = new QPushButton(Playlists);
+        playlistAddButton->setObjectName(QStringLiteral("playlistAddButton"));
+        playlistAddButton->setGeometry(QRect(10, 230, 111, 28));
+        playlistDeleteButton = new QPushButton(Playlists);
+        playlistDeleteButton->setObjectName(QStringLiteral("playlistDeleteButton"));
+        playlistDeleteButton->setGeometry(QRect(256, 230, 111, 28));
         pushButton_3 = new QPushButton(Playlists);
         pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
         pushButton_3->setGeometry(QRect(134, 230, 111, 28));
@@ -188,7 +188,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -214,8 +214,8 @@ public:
         genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", 0));
         searchBox->setText(QString());
         tabWidget->setTabText(tabWidget->indexOf(Search), QApplication::translate("MainWindow", "Search", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Add", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "Delete", 0));
+        playlistAddButton->setText(QApplication::translate("MainWindow", "Add", 0));
+        playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
         pushButton_3->setText(QApplication::translate("MainWindow", "Edit", 0));
         label->setText(QApplication::translate("MainWindow", "Playlists", 0));
         pushButton_4->setText(QApplication::translate("MainWindow", "Load", 0));

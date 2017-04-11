@@ -20,7 +20,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void deleteRow(int index);
 
 private slots:
     void on_actionExit_triggered();
@@ -40,10 +39,15 @@ private slots:
     void edit_playlist(QString playlist_name);
     void delete_playlist(QString playlist_name);
 
+    void on_playlistAddButton_clicked();
+
+    void on_playlistDeleteButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QSqlTableModel *model;
     QSqlTableModel *results;
+    QSqlTableModel *playlists;
     QLineEdit *search;
 };
 
