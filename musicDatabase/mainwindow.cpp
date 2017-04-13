@@ -48,12 +48,19 @@ MainWindow::MainWindow(QWidget *parent) :
     // Attach table models to table views
     ui->tableView->setModel(model);
     ui->tableView->setSortingEnabled(true);
+    ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->resultsView->setModel(results);
     ui->resultsView->setSortingEnabled(true);
+    ui->resultsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->resultsView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->playlistTableView->setModel(playlists);
     ui->playlistTableView->setSortingEnabled(true);
+    ui->playlistTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->playlistTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->playlistTableView->setSelectionMode(QAbstractItemView::SingleSelection);
 
     // Set title of window
     setWindowTitle(tr("MyMusic Player"));
@@ -142,67 +149,7 @@ void MainWindow::on_searchButton_clicked()
     }
 }
 
-void MainWindow::on_actionCreate_Playlist_triggered()
-{
-    bool ok;
-    QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
-                                                  tr("Playlist name:"), QLineEdit::Normal,
-                                                  QDir::home().dirName(), &ok);
-    if (ok && !playlist_name.isEmpty())
-        create_playlist(playlist_name);
-}
-
-void MainWindow::create_playlist(QString playlist_name)
-{
-    QSqlQuery query;
-    QString exec_string;
-    exec_string = "INSERT INTO playlists VALUES(DEFAULT, '" + playlist_name + "')";
-    query.exec(exec_string);
-}
-
-void MainWindow::on_actionNew_playlist_triggered()
-{
-    bool ok;
-    QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
-                                                  tr("Playlist name:"), QLineEdit::Normal,
-                                                  QDir::home().dirName(), &ok);
-    if (ok && !playlist_name.isEmpty())
-        create_playlist(playlist_name);
-}
-
-void MainWindow::edit_playlist(QString playlist_name)
-{
-
-}
-
-void MainWindow::on_actionEdit_playlist_triggered()
-{
-    bool ok;
-    QString playlist_name = QInputDialog::getText(this, tr("Edit Playlist"),
-                                                  tr("Playlist name:"), QLineEdit::Normal,
-                                                  QDir::home().dirName(), &ok);
-    if (ok && !playlist_name.isEmpty())
-        edit_playlist(playlist_name);
-}
-
-void MainWindow::delete_playlist(QString playlist_name)
-{
-    QSqlQuery query;
-    QString exec_string;
-    exec_string = "DELETE FROM playlists WHERE playlistId = " + playlist_name;
-    query.exec(exec_string);
-}
-
-void MainWindow::on_actionDelete_playlist_triggered()
-{
-    bool ok;
-    QString playlist_name = QInputDialog::getText(this, tr("Delete Playlist"),
-                                                  tr("Playlist name:"), QLineEdit::Normal,
-                                                  QDir::home().dirName(), &ok);
-    if (ok && !playlist_name.isEmpty())
-        delete_playlist(playlist_name);
-}
-
+// Add a playlist
 void MainWindow::on_playlistAddButton_clicked()
 {
     bool ok;
@@ -215,15 +162,43 @@ void MainWindow::on_playlistAddButton_clicked()
     playlists->select();
 }
 
+void MainWindow::create_playlist(QString playlist_name)
+{
+    QSqlQuery query;
+    QString exec_string;
+    exec_string = "INSERT INTO playlists VALUES(DEFAULT, '" + playlist_name + "')";
+    query.exec(exec_string);
+}
+
+// Edit a playlist
+void MainWindow::on_playlistEditButton_clicked()
+{
+
+}
+
+void MainWindow::edit_playlist(QString playlist_name)
+{
+
+}
+
+// Delete a playlist
 void MainWindow::on_playlistDeleteButton_clicked()
 {
-    // TODO: For now, this deletes based on playlistId
-    bool ok;
-    QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
-                                                  tr("Playlist name:"), QLineEdit::Normal,
-                                                  QDir::home().dirName(), &ok);
-    if (ok && !playlist_name.isEmpty())
-        delete_playlist(playlist_name);
+    QItemSelectionModel *select = ui->playlistTableView->selectionModel();
+    if (select->hasSelection()) {
+        QString index = select->selectedRows().at(0).data().toString();
+        delete_playlist(index);
+    }
 
     playlists->select();
 }
+
+void MainWindow::delete_playlist(QString playlist_name)
+{
+    QSqlQuery query;
+    QString exec_string;
+    exec_string = "DELETE FROM playlists WHERE playlistId = " + playlist_name;
+    query.exec(exec_string);
+}
+
+

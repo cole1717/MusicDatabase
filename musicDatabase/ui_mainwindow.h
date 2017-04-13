@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.0
+** Created by: Qt User Interface Compiler version 5.7.1
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -196,32 +196,32 @@ public:
 
     void retranslateUi(QMainWindow *MainWindow)
     {
-        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        actionNew_playlist->setText(QApplication::translate("MainWindow", "New playlist", 0));
-        actionEdit_playlist->setText(QApplication::translate("MainWindow", "Edit playlist", 0));
-        actionDelete_playlist->setText(QApplication::translate("MainWindow", "Delete playlist", 0));
-        actionExit->setText(QApplication::translate("MainWindow", "Exit", 0));
-        actionPlay->setText(QApplication::translate("MainWindow", "Play", 0));
-        actionReverse->setText(QApplication::translate("MainWindow", "Reverse", 0));
-        actionForward->setText(QApplication::translate("MainWindow", "Forward", 0));
-        actionHelp->setText(QApplication::translate("MainWindow", "View help", 0));
-        actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
-        actionCreate_Playlist->setText(QApplication::translate("MainWindow", "Create Playlist", 0));
-        searchButton->setText(QApplication::translate("MainWindow", "Search", 0));
-        songRadioButton->setText(QApplication::translate("MainWindow", "Song", 0));
-        albumRadioButton->setText(QApplication::translate("MainWindow", "Album", 0));
-        artistRadioButton->setText(QApplication::translate("MainWindow", "Artist", 0));
-        genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", 0));
+        MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", Q_NULLPTR));
+        actionNew_playlist->setText(QApplication::translate("MainWindow", "New playlist", Q_NULLPTR));
+        actionEdit_playlist->setText(QApplication::translate("MainWindow", "Edit playlist", Q_NULLPTR));
+        actionDelete_playlist->setText(QApplication::translate("MainWindow", "Delete playlist", Q_NULLPTR));
+        actionExit->setText(QApplication::translate("MainWindow", "Exit", Q_NULLPTR));
+        actionPlay->setText(QApplication::translate("MainWindow", "Play", Q_NULLPTR));
+        actionReverse->setText(QApplication::translate("MainWindow", "Reverse", Q_NULLPTR));
+        actionForward->setText(QApplication::translate("MainWindow", "Forward", Q_NULLPTR));
+        actionHelp->setText(QApplication::translate("MainWindow", "View help", Q_NULLPTR));
+        actionAbout->setText(QApplication::translate("MainWindow", "About", Q_NULLPTR));
+        actionCreate_Playlist->setText(QApplication::translate("MainWindow", "Create Playlist", Q_NULLPTR));
+        searchButton->setText(QApplication::translate("MainWindow", "Search", Q_NULLPTR));
+        songRadioButton->setText(QApplication::translate("MainWindow", "Song", Q_NULLPTR));
+        albumRadioButton->setText(QApplication::translate("MainWindow", "Album", Q_NULLPTR));
+        artistRadioButton->setText(QApplication::translate("MainWindow", "Artist", Q_NULLPTR));
+        genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", Q_NULLPTR));
         searchBox->setText(QString());
-        tabWidget->setTabText(tabWidget->indexOf(Search), QApplication::translate("MainWindow", "Search", 0));
-        playlistAddButton->setText(QApplication::translate("MainWindow", "Add", 0));
-        playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Edit", 0));
-        label->setText(QApplication::translate("MainWindow", "Playlists", 0));
-        pushButton_4->setText(QApplication::translate("MainWindow", "Load", 0));
-        tabWidget->setTabText(tabWidget->indexOf(Playlists), QApplication::translate("MainWindow", "Playlists", 0));
-        menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
-        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));
+        tabWidget->setTabText(tabWidget->indexOf(Search), QApplication::translate("MainWindow", "Search", Q_NULLPTR));
+        playlistAddButton->setText(QApplication::translate("MainWindow", "Add", Q_NULLPTR));
+        playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", Q_NULLPTR));
+        pushButton_3->setText(QApplication::translate("MainWindow", "Edit", Q_NULLPTR));
+        label->setText(QApplication::translate("MainWindow", "Playlists", Q_NULLPTR));
+        pushButton_4->setText(QApplication::translate("MainWindow", "Load", Q_NULLPTR));
+        tabWidget->setTabText(tabWidget->indexOf(Playlists), QApplication::translate("MainWindow", "Playlists", Q_NULLPTR));
+        menuFile->setTitle(QApplication::translate("MainWindow", "File", Q_NULLPTR));
+        menuHelp->setTitle(QApplication::translate("MainWindow", "Help", Q_NULLPTR));
     } // retranslateUi
 
 };

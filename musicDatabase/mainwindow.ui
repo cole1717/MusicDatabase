@@ -169,7 +169,7 @@
        <string>Delete</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="playlistEditButton">
       <property name="geometry">
        <rect>
         <x>134</x>
