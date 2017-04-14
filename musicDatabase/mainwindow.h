@@ -29,7 +29,7 @@ private slots:
 
     void create_playlist(QString playlist_name);
     void edit_playlist(QString playlist_name);
-    void delete_playlist(QString playlist_name);
+    void delete_playlist(QString playlist_index);
 
     void on_playlistAddButton_clicked();
 

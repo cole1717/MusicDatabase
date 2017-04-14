@@ -12,19 +12,12 @@ using namespace std;
 
 static bool createConnection()
 {
-    //cout<<"Username: ";
-    //std::string username;
-//    QString username;
-    //cin>>username;
-
-
-
     QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
     db.setHostName("localhost");
     db.setPort(3306);
     db.setDatabaseName("music");
     db.setUserName("root");
-    db.setPassword("Dodgerthedog12");
+    db.setPassword("Password");
     if (!db.open())
     {
         QMessageBox::warning(0, "Error", db.lastError().text());

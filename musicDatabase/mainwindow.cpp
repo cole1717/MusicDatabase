@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     results = new QSqlTableModel(this);
     results->setTable("table_view");
     results->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    results->select();
 
     results->setHeaderData(0, Qt::Horizontal, tr("Title"));
     results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
@@ -29,7 +30,6 @@ MainWindow::MainWindow(QWidget *parent) :
     model = new QSqlTableModel(this);
     model->setTable("table_view");
     model->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    model->setSort(1, Qt::DescendingOrder);
     model->select();
 
     model->setHeaderData(0, Qt::Horizontal, tr("Title"));
@@ -40,19 +40,20 @@ MainWindow::MainWindow(QWidget *parent) :
     playlists = new QSqlTableModel(this);
     playlists->setTable("playlists");
     playlists->setEditStrategy(QSqlTableModel::OnRowChange);
+    playlists->setSort(0, Qt::AscendingOrder);
     playlists->select();
 
     playlists->setHeaderData(0, Qt::Horizontal, tr("Index"));
     playlists->setHeaderData(1, Qt::Horizontal, tr("Playlist Name"));
 
     // Attach table models to table views
-    ui->tableView->setModel(model);
     ui->tableView->setSortingEnabled(true);
+    ui->tableView->setModel(model);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     ui->resultsView->setModel(results);
-    ui->resultsView->setSortingEnabled(true);
+    ui->resultsView->setSortingEnabled(false);
     ui->resultsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->resultsView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
@@ -93,33 +94,36 @@ void MainWindow::on_searchButton_clicked()
 {
     QSqlQuery query;
     QString search_value = ui->searchBox->text();
-    QString search_string;
     if (ui->artistRadioButton->isChecked()) {
-        search_string = "Select * from table_view where artist like concat ('%', '"
-                + search_value + "', '%')";
-        query.prepare(search_string);
+        query.prepare("SELECT * "
+                      "FROM table_view "
+                      "WHERE artist LIKE CONCAT ('%', :value, '%') "
+                      "ORDER BY album ASC");
+        query.bindValue(":value", search_value);
 
-        //query.prepare("CALL artist_search('AC/DC')");
-        //query.bindValue(":value", search_value);
     } else if (ui->albumRadioButton->isChecked()) {
-        search_string = "Select * from table_view where album like concat ('%', '"
-                + search_value + "', '%')";
-        query.prepare(search_string);
+        query.prepare("SELECT * "
+                      "FROM table_view "
+                      "WHERE album LIKE CONCAT ('%', :value, '%') "
+                      "ORDER BY album ASC, artist ASC");
+        query.bindValue(":value", search_value);
 
-        //query.prepare("CALL search_album(:value)");
-        //query.bindValue(":value", search_value);
     } else if (ui->songRadioButton->isChecked()) {
-        search_string = "Select * from table_view where title like concat ('%', '"
-                + search_value + "', '%')";
-        query.prepare(search_string);
+        query.prepare("SELECT * "
+                      "FROM table_view "
+                      "WHERE title LIKE CONCAT ('%', :value, '%') "
+                      "ORDER BY title ASC");
+        query.bindValue(":value", search_value);
 
-        //query.prepare("CALL search_song(:value)");
-        //query.bindValue(":value", search_value);
     } else if (ui->genreRadioButton->isChecked()) {
-        query.prepare("CALL search('AC/DC')");
+        query.prepare("SELECT title, artist, album "
+                      "FROM table_view, albums, genres "
+                      "WHERE album = albums.name "
+                      "AND albums.genreId = genres.genreId "
+                      "AND genres.name LIKE CONCAT ('%', :value, '%') "
+                      "ORDER BY artist ASC, album ASC");
+        query.bindValue(":value", search_value);
 
-        //query.prepare("CALL search_genre(:value)");
-        //query.bindValue(":value", search_value);
     } else {
         QMessageBox::warning(this, tr("Warning"), tr("Please select a "
                                                      "field to search in!"));
@@ -128,9 +132,7 @@ void MainWindow::on_searchButton_clicked()
 
     // Execute query prepared earlier
     if (!query.exec())
-        QMessageBox::warning(this, tr("warning"), query.lastError().text());
-    //qDebug() << query.first();
-    //qDebug() << query.next();
+        QMessageBox::warning(this, tr("Warning"), query.lastError().text());
 
     // Clear table view with blank entries
     QSqlRecord null = query.record();
@@ -141,8 +143,7 @@ void MainWindow::on_searchButton_clicked()
     // While there are results, fill table view
     QSqlRecord record = query.record();
     int index = 0;
-    while (query.next())
-    {
+    while (query.next()) {
         record = query.record();
         results->setRecord(index, record);
         index++;
@@ -150,6 +151,15 @@ void MainWindow::on_searchButton_clicked()
 }
 
 // Add a playlist
+void MainWindow::create_playlist(QString playlist_name)
+{
+    QSqlQuery query;
+    // Call prepared statement `create_playlist`
+    query.prepare("CALL create_playlist(:playlist)");
+    query.bindValue(":playlist", playlist_name);
+    query.exec();
+}
+
 void MainWindow::on_playlistAddButton_clicked()
 {
     bool ok;
@@ -162,26 +172,27 @@ void MainWindow::on_playlistAddButton_clicked()
     playlists->select();
 }
 
-void MainWindow::create_playlist(QString playlist_name)
-{
-    QSqlQuery query;
-    QString exec_string;
-    exec_string = "INSERT INTO playlists VALUES(DEFAULT, '" + playlist_name + "')";
-    query.exec(exec_string);
-}
-
 // Edit a playlist
-void MainWindow::on_playlistEditButton_clicked()
-{
-
-}
-
 void MainWindow::edit_playlist(QString playlist_name)
 {
 
 }
 
+void MainWindow::on_playlistEditButton_clicked()
+{
+
+}
+
 // Delete a playlist
+void MainWindow::delete_playlist(QString playlist_index)
+{
+    QSqlQuery query;
+    // Call prepared statement `delete_playlist`
+    query.prepare("CALL delete_playlist(:index)");
+    query.bindValue(":index", playlist_index);
+    query.exec();
+}
+
 void MainWindow::on_playlistDeleteButton_clicked()
 {
     QItemSelectionModel *select = ui->playlistTableView->selectionModel();
@@ -193,12 +204,6 @@ void MainWindow::on_playlistDeleteButton_clicked()
     playlists->select();
 }
 
-void MainWindow::delete_playlist(QString playlist_name)
-{
-    QSqlQuery query;
-    QString exec_string;
-    exec_string = "DELETE FROM playlists WHERE playlistId = " + playlist_name;
-    query.exec(exec_string);
-}
+
 
 
