@@ -205,18 +205,6 @@ void MainWindow::on_playlistDeleteButton_clicked()
     playlists->select();
 }
 
-<<<<<<< HEAD
-void MainWindow::delete_playlist(QString playlist_index)
-{
-    QSqlQuery query;
-    QString exec_string;
-    exec_string = "DELETE FROM playlists WHERE playlistId = " + playlist_index;
-    query.exec(exec_string);
-}
-=======
-
->>>>>>> tyler
-
 void MainWindow::on_addToPlaylistButton_clicked()
 {
     // TODO: need to add 'trackId' to table_view in MySQL as well as MainWindow constructor
