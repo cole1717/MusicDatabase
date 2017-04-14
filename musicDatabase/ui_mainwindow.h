@@ -53,11 +53,12 @@ public:
     QRadioButton *artistRadioButton;
     QRadioButton *genreRadioButton;
     QLineEdit *searchBox;
+    QPushButton *addToPlaylistButton;
     QWidget *Playlists;
     QTableView *playlistTableView;
     QPushButton *playlistAddButton;
     QPushButton *playlistDeleteButton;
-    QPushButton *pushButton_3;
+    QPushButton *playlistEditButton;
     QLabel *label;
     QPushButton *pushButton_4;
     QTableView *tableView_3;
@@ -114,7 +115,7 @@ public:
         searchButton->setGeometry(QRect(380, 0, 93, 28));
         resultsView = new QTableView(Search);
         resultsView->setObjectName(QStringLiteral("resultsView"));
-        resultsView->setGeometry(QRect(0, 270, 501, 241));
+        resultsView->setGeometry(QRect(0, 225, 501, 261));
         songRadioButton = new QRadioButton(Search);
         songRadioButton->setObjectName(QStringLiteral("songRadioButton"));
         songRadioButton->setGeometry(QRect(250, 2, 61, 20));
@@ -123,7 +124,7 @@ public:
         albumRadioButton->setGeometry(QRect(180, 2, 71, 20));
         tableView = new QTableView(Search);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(0, 30, 501, 231));
+        tableView->setGeometry(QRect(0, 30, 501, 191));
         artistRadioButton = new QRadioButton(Search);
         artistRadioButton->setObjectName(QStringLiteral("artistRadioButton"));
         artistRadioButton->setGeometry(QRect(120, 2, 61, 20));
@@ -133,6 +134,9 @@ public:
         searchBox = new QLineEdit(Search);
         searchBox->setObjectName(QStringLiteral("searchBox"));
         searchBox->setGeometry(QRect(0, 2, 113, 22));
+        addToPlaylistButton = new QPushButton(Search);
+        addToPlaylistButton->setObjectName(QStringLiteral("addToPlaylistButton"));
+        addToPlaylistButton->setGeometry(QRect(0, 487, 121, 28));
         tabWidget->addTab(Search, QString());
         Playlists = new QWidget();
         Playlists->setObjectName(QStringLiteral("Playlists"));
@@ -145,9 +149,9 @@ public:
         playlistDeleteButton = new QPushButton(Playlists);
         playlistDeleteButton->setObjectName(QStringLiteral("playlistDeleteButton"));
         playlistDeleteButton->setGeometry(QRect(256, 230, 111, 28));
-        pushButton_3 = new QPushButton(Playlists);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setGeometry(QRect(134, 230, 111, 28));
+        playlistEditButton = new QPushButton(Playlists);
+        playlistEditButton->setObjectName(QStringLiteral("playlistEditButton"));
+        playlistEditButton->setGeometry(QRect(134, 230, 111, 28));
         label = new QLabel(Playlists);
         label->setObjectName(QStringLiteral("label"));
         label->setGeometry(QRect(12, 2, 131, 16));
@@ -188,7 +192,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -213,10 +217,11 @@ public:
         artistRadioButton->setText(QApplication::translate("MainWindow", "Artist", Q_NULLPTR));
         genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", Q_NULLPTR));
         searchBox->setText(QString());
+        addToPlaylistButton->setText(QApplication::translate("MainWindow", "Add to Playlist...", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(Search), QApplication::translate("MainWindow", "Search", Q_NULLPTR));
         playlistAddButton->setText(QApplication::translate("MainWindow", "Add", Q_NULLPTR));
         playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", Q_NULLPTR));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Edit", Q_NULLPTR));
+        playlistEditButton->setText(QApplication::translate("MainWindow", "Edit", Q_NULLPTR));
         label->setText(QApplication::translate("MainWindow", "Playlists", Q_NULLPTR));
         pushButton_4->setText(QApplication::translate("MainWindow", "Load", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(Playlists), QApplication::translate("MainWindow", "Playlists", Q_NULLPTR));

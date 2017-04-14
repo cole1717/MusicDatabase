@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->resultsView->setSortingEnabled(true);
     ui->resultsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->resultsView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->resultsView->setSelectionMode(QAbstractItemView::ExtendedSelection);
 
     ui->playlistTableView->setModel(playlists);
     ui->playlistTableView->setSortingEnabled(true);
@@ -193,12 +194,36 @@ void MainWindow::on_playlistDeleteButton_clicked()
     playlists->select();
 }
 
-void MainWindow::delete_playlist(QString playlist_name)
+void MainWindow::delete_playlist(QString playlist_index)
 {
     QSqlQuery query;
     QString exec_string;
-    exec_string = "DELETE FROM playlists WHERE playlistId = " + playlist_name;
+    exec_string = "DELETE FROM playlists WHERE playlistId = " + playlist_index;
     query.exec(exec_string);
 }
 
+void MainWindow::on_addToPlaylistButton_clicked()
+{
+    // TODO: need to add 'trackId' to table_view in MySQL as well as MainWindow constructor
+    // track_id currently thinks the index is actually the song title
+    QItemSelectionModel *select = ui->resultsView->selectionModel();
+    if (select->hasSelection()) {
+        for(int i = 0; i< select->selectedRows().count(); i++) {
+            QString playlist_id = "1";   // Need to get input from user somehow for what playlist to add to
+            QString track_id = select->selectedRows(0).at(i).data().toString();
+            // qDebug() << track_id;
+            add_to_playlist(playlist_id, track_id);
+        }
+    }
+}
 
+void MainWindow::add_to_playlist(QString playlist_index, QString track_index)
+{
+    // TODO: use MySQL procedure instead
+
+    QSqlQuery query;
+    QString exec_string;
+    exec_string = "INSERT INTO `music`.`playlists_has_tracks` (`playlistId`, `trackId`) VALUES ('"
+             + playlist_index + "', '" + track_index + "')";
+    query.exec(exec_string);
+}

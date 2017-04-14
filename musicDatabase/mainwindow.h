@@ -29,13 +29,18 @@ private slots:
 
     void create_playlist(QString playlist_name);
     void edit_playlist(QString playlist_name);
-    void delete_playlist(QString playlist_name);
+    void delete_playlist(QString playlist_index);
+    void add_to_playlist(QString playlist_index, QString track_id);
 
     void on_playlistAddButton_clicked();
 
     void on_playlistDeleteButton_clicked();
 
     void on_playlistEditButton_clicked();
+
+    void on_addToPlaylistButton_clicked();
+
+
 
 private:
     Ui::MainWindow *ui;

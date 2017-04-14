@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="Search">
      <attribute name="title">
@@ -47,9 +47,9 @@
       <property name="geometry">
        <rect>
         <x>0</x>
-        <y>270</y>
+        <y>225</y>
         <width>501</width>
-        <height>241</height>
+        <height>261</height>
        </rect>
       </property>
      </widget>
@@ -85,7 +85,7 @@
         <x>0</x>
         <y>30</y>
         <width>501</width>
-        <height>231</height>
+        <height>191</height>
        </rect>
       </property>
      </widget>
@@ -126,6 +126,19 @@
       </property>
       <property name="text">
        <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="addToPlaylistButton">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>487</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Add to Playlist...</string>
       </property>
      </widget>
     </widget>
