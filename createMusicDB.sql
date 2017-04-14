@@ -6,13 +6,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema music
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Schema music
--- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `music`;
 CREATE SCHEMA IF NOT EXISTS `music` DEFAULT CHARACTER SET utf8 ;
 USE `music` ;
+
 
 -- -----------------------------------------------------
 -- Table `music`.`Artists`
@@ -256,6 +253,32 @@ BEGIN
     FROM table_view
     WHERE artist LIKE CONCAT('%', artist_name, '%')
     ORDER BY album;
+END
+$$ DELIMITER ;
+
+
+-- ------------------------------------------------------
+-- Procedure `create_playlist`
+-- ------------------------------------------------------
+DROP PROCEDURE IF EXISTS create_playlist;
+
+DELIMITER $$
+CREATE PROCEDURE create_playlist(playlist_name VARCHAR(60))
+BEGIN
+	INSERT INTO playlists VALUES(DEFAULT, playlist_name);
+END
+$$ DELIMITER ;
+
+
+-- ------------------------------------------------------
+-- Procedure `delete_playlist`
+-- ------------------------------------------------------
+DROP PROCEDURE IF EXISTS delete_playlist;
+
+DELIMITER $$
+CREATE PROCEDURE delete_playlist(playlist_id INT(11))
+BEGIN
+	DELETE FROM playlists WHERE playlistId = playlist_id;
 END
 $$ DELIMITER ;
 
