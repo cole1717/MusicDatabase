@@ -46,6 +46,16 @@ MainWindow::MainWindow(QWidget *parent) :
     playlists->setHeaderData(0, Qt::Horizontal, tr("Index"));
     playlists->setHeaderData(1, Qt::Horizontal, tr("Playlist Name"));
 
+    // Set up playlist_results table model after playlists table
+    playlist_results = new QSqlTableModel(this);
+    playlist_results->setTable("table_view");
+    playlist_results->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    playlist_results->select();
+
+    playlist_results->setHeaderData(0, Qt::Horizontal, tr("Title"));
+    playlist_results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
+    playlist_results->setHeaderData(2, Qt::Horizontal, tr("Album"));
+
     // Attach table models to table views
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setModel(model);
@@ -63,6 +73,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->playlistTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->playlistTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playlistTableView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    ui->playlistResultTableView->setModel(playlist_results);
+    ui->playlistResultTableView->setSortingEnabled(false);
+    ui->playlistResultTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    ui->playlistResultTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
 
     // Set title of window
     setWindowTitle(tr("MyMusic Player"));
@@ -95,6 +110,13 @@ void MainWindow::on_searchButton_clicked()
 {
     QSqlQuery query;
     QString search_value = ui->searchBox->text();
+    // Check to make sure search_value is not empty
+    if (search_value.isEmpty()) {
+        QMessageBox::warning(this, tr("Warning"),
+                             tr("Please enter a search value!"));
+        return;
+    }
+    // If not empty, search for value
     if (ui->artistRadioButton->isChecked()) {
         query.prepare("SELECT * "
                       "FROM table_view "
@@ -126,6 +148,7 @@ void MainWindow::on_searchButton_clicked()
         query.bindValue(":value", search_value);
 
     } else {
+        // If no radio button has been selected
         QMessageBox::warning(this, tr("Warning"), tr("Please select a "
                                                      "field to search in!"));
         return;
@@ -166,7 +189,7 @@ void MainWindow::on_playlistAddButton_clicked()
     bool ok;
     QString playlist_name = QInputDialog::getText(this, tr("New Playlist"),
                                                   tr("Playlist name:"), QLineEdit::Normal,
-                                                  QDir::home().dirName(), &ok);
+                                                  tr("New Playlist"), &ok);
     if (ok && !playlist_name.isEmpty())
         create_playlist(playlist_name);
 
@@ -225,8 +248,64 @@ void MainWindow::add_to_playlist(QString playlist_index, QString track_index)
     // TODO: use MySQL procedure instead
 
     QSqlQuery query;
-    QString exec_string;
+    query.prepare("CALL insert_into_playlist(:playlist, :track)");
+    query.bindValue(":playlist", playlist_index);
+    query.bindValue(":track", track_index);
+    query.exec();
+    /*QString exec_string;
     exec_string = "INSERT INTO `music`.`playlists_has_tracks` (`playlistId`, `trackId`) VALUES ('"
              + playlist_index + "', '" + track_index + "')";
-    query.exec(exec_string);
+    query.exec(exec_string);*/
+}
+
+void MainWindow::load_playlist(int playlist_index)
+{
+    QSqlQuery query;
+    //query.prepare("SELECT * FROM table_view WHERE artist = 'AC/DC'");
+    query.prepare("SELECT tracks.name AS title, artists.name AS artist, albums.name AS album"
+                  "FROM playlists_has_tracks, tracks, artists, albums "
+                  "WHERE playlists_has_tracks.playlistId = :playlist_index "
+                  "AND playlists_has_tracks.trackId = tracks.trackId "
+                  "AND tracks.albumId = albums.albumId "
+                  "AND tracks.artistId = artists.artistId");
+    query.bindValue(":playlist_index", playlist_index);
+
+    // Execute query prepared earlier
+    if (!query.exec())
+        QMessageBox::warning(this, tr("Warning"), query.lastError().text());
+
+    query.next();
+    qDebug() << query.value(0).toString();
+    qDebug() << query.value(1).toString();
+    qDebug() << query.value(2).toString();
+    // Clear table view with blank entries
+    QSqlRecord null = query.record();
+    for (int i = 0; i < playlist_results->rowCount(); i++) {
+        playlist_results->setRecord(i, null);
+    }
+/*
+    // While there are results, fill table view
+    QSqlRecord record = query.record();
+    int index = 0;
+    while (query.next()) {
+        record = query.record();
+        playlist_results->setRecord(index, record);
+        index++;
+    }*/
+}
+
+void MainWindow::on_loadButton_clicked()
+{
+    // First, get index of playlist to be loaded
+    // Then, display all songs in that playlist
+    QItemSelectionModel *select = ui->playlistTableView->selectionModel();
+    if (select->hasSelection()) {
+        // Get index from selection
+        int playlist_index = select->selectedRows(0).at(0).data().toInt();
+        qDebug() << playlist_index;
+        load_playlist(playlist_index);
+    } else {
+        // No selection made
+        QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
+    }
 }

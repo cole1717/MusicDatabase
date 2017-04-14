@@ -284,6 +284,19 @@ $$ DELIMITER ;
 
 
 -- ------------------------------------------------------
+-- Procedure `insert_into_playlist`
+-- ------------------------------------------------------
+DROP PROCEDURE IF EXISTS insert_into_playlist;
+
+DELIMITER $$
+CREATE PROCEDURE insert_into_playlist(playlist_index INT(11), track_index INT(11))
+BEGIN
+	INSERT INTO playlists_has_tracks VALUES(playlist_index, track_index);
+END
+$$ DELIMITER ;
+
+
+-- ------------------------------------------------------
 -- View `table_view`
 -- ------------------------------------------------------
 DROP VIEW IF EXISTS table_view;

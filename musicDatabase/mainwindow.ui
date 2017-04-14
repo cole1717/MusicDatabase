@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Search">
      <attribute name="title">
@@ -211,7 +211,7 @@
        <string>Playlists</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="loadButton">
       <property name="geometry">
        <rect>
         <x>380</x>
@@ -224,7 +224,7 @@
        <string>Load</string>
       </property>
      </widget>
-     <widget class="QTableView" name="tableView_3">
+     <widget class="QTableView" name="playlistResultTableView">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -243,7 +243,7 @@
      <x>0</x>
      <y>0</y>
      <width>505</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
