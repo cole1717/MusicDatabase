@@ -48,9 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Set up playlist_results table model after playlists table
     playlist_results = new QSqlTableModel(this);
-    playlist_results->setTable("table_view");
+    playlist_results->setTable("playlist_view");
     playlist_results->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    playlist_results->select();
+    //playlist_results->select();
 
     playlist_results->setHeaderData(0, Qt::Horizontal, tr("Title"));
     playlist_results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
@@ -78,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->playlistResultTableView->setSortingEnabled(false);
     ui->playlistResultTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->playlistResultTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->playlistResultTableView->setColumnHidden(3, true);
 
     // Set title of window
     setWindowTitle(tr("MyMusic Player"));
@@ -260,30 +261,26 @@ void MainWindow::add_to_playlist(QString playlist_index, QString track_index)
 
 void MainWindow::load_playlist(int playlist_index)
 {
+    // Populate tableview
+    playlist_results->select();
+
     QSqlQuery query;
-    //query.prepare("SELECT * FROM table_view WHERE artist = 'AC/DC'");
-    query.prepare("SELECT tracks.name AS title, artists.name AS artist, albums.name AS album"
-                  "FROM playlists_has_tracks, tracks, artists, albums "
+    query.prepare("SELECT title, artist, album "
+                  "FROM playlist_view, playlists_has_tracks "
                   "WHERE playlists_has_tracks.playlistId = :playlist_index "
-                  "AND playlists_has_tracks.trackId = tracks.trackId "
-                  "AND tracks.albumId = albums.albumId "
-                  "AND tracks.artistId = artists.artistId");
+                  "AND playlists_has_tracks.trackId = track_id");
     query.bindValue(":playlist_index", playlist_index);
 
     // Execute query prepared earlier
     if (!query.exec())
         QMessageBox::warning(this, tr("Warning"), query.lastError().text());
 
-    query.next();
-    qDebug() << query.value(0).toString();
-    qDebug() << query.value(1).toString();
-    qDebug() << query.value(2).toString();
     // Clear table view with blank entries
     QSqlRecord null = query.record();
     for (int i = 0; i < playlist_results->rowCount(); i++) {
         playlist_results->setRecord(i, null);
     }
-/*
+
     // While there are results, fill table view
     QSqlRecord record = query.record();
     int index = 0;
@@ -291,7 +288,7 @@ void MainWindow::load_playlist(int playlist_index)
         record = query.record();
         playlist_results->setRecord(index, record);
         index++;
-    }*/
+    }
 }
 
 void MainWindow::on_loadButton_clicked()

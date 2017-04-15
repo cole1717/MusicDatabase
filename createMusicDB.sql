@@ -307,6 +307,21 @@ CREATE VIEW table_view AS
 	WHERE artists.artistId = albums.artistId
 	AND tracks.albumId = albums.albumId
     ORDER BY title ASC;
+    
+
+-- ------------------------------------------------------
+-- View `playlist_view`
+-- ------------------------------------------------------
+DROP VIEW IF EXISTS playlist_view;
+
+CREATE VIEW playlist_view AS
+	SELECT tracks.name AS title, artists.name AS artist,
+		albums.name AS album, tracks.trackId AS track_id
+	FROM tracks, artists, albums
+    WHERE artists.artistId = albums.artistId
+    AND tracks.albumId = albums.albumId
+    ORDER BY title ASC;
+
 
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('1', 'Rock');
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('2', 'Pop');
