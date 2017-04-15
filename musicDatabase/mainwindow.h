@@ -28,7 +28,6 @@ private slots:
     void on_searchButton_clicked();
 
     void create_playlist(QString playlist_name);
-    void edit_playlist(QString playlist_name);
     void delete_playlist(QString playlist_index);
     void load_playlist(int playlist_index);
 
@@ -37,8 +36,6 @@ private slots:
     void on_playlistAddButton_clicked();
 
     void on_playlistDeleteButton_clicked();
-
-    void on_playlistEditButton_clicked();
 
     void on_addToPlaylistButton_clicked();
 

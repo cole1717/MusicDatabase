@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // Set up results table model after table_view view
     results = new QSqlTableModel(this);
-    results->setTable("table_view");
+    results->setTable("playlist_view");
     results->setEditStrategy(QSqlTableModel::OnManualSubmit);
     results->select();
 
@@ -67,6 +67,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->resultsView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->resultsView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->resultsView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    ui->resultsView->setColumnHidden(3, true);
 
     ui->playlistTableView->setModel(playlists);
     ui->playlistTableView->setSortingEnabled(true);
@@ -197,17 +198,6 @@ void MainWindow::on_playlistAddButton_clicked()
     playlists->select();
 }
 
-// Edit a playlist
-void MainWindow::edit_playlist(QString playlist_name)
-{
-
-}
-
-void MainWindow::on_playlistEditButton_clicked()
-{
-
-}
-
 // Delete a playlist
 void MainWindow::delete_playlist(QString playlist_index)
 {
@@ -220,6 +210,7 @@ void MainWindow::delete_playlist(QString playlist_index)
 
 void MainWindow::on_playlistDeleteButton_clicked()
 {
+    // TODO: Make it able to delete non-empty playlists
     QItemSelectionModel *select = ui->playlistTableView->selectionModel();
     if (select->hasSelection()) {
         QString index = select->selectedRows().at(0).data().toString();
@@ -231,32 +222,28 @@ void MainWindow::on_playlistDeleteButton_clicked()
 
 void MainWindow::on_addToPlaylistButton_clicked()
 {
-    // TODO: need to add 'trackId' to table_view in MySQL as well as MainWindow constructor
-    // track_id currently thinks the index is actually the song title
+    // TODO: Get user input for playlist
     QItemSelectionModel *select = ui->resultsView->selectionModel();
     if (select->hasSelection()) {
         for(int i = 0; i< select->selectedRows().count(); i++) {
-            QString playlist_id = "1";   // Need to get input from user somehow for what playlist to add to
-            QString track_id = select->selectedRows(0).at(i).data().toString();
+            QString playlist_id = "2";   // Need to get input from user somehow for what playlist to add to
+            QString track_id = select->selectedRows(3).at(i).data().toString();
             // qDebug() << track_id;
             add_to_playlist(playlist_id, track_id);
         }
+    } else {
+            // No selection made
+            QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
     }
 }
 
 void MainWindow::add_to_playlist(QString playlist_index, QString track_index)
 {
-    // TODO: use MySQL procedure instead
-
     QSqlQuery query;
     query.prepare("CALL insert_into_playlist(:playlist, :track)");
     query.bindValue(":playlist", playlist_index);
     query.bindValue(":track", track_index);
     query.exec();
-    /*QString exec_string;
-    exec_string = "INSERT INTO `music`.`playlists_has_tracks` (`playlistId`, `trackId`) VALUES ('"
-             + playlist_index + "', '" + track_index + "')";
-    query.exec(exec_string);*/
 }
 
 void MainWindow::load_playlist(int playlist_index)
@@ -299,10 +286,23 @@ void MainWindow::on_loadButton_clicked()
     if (select->hasSelection()) {
         // Get index from selection
         int playlist_index = select->selectedRows(0).at(0).data().toInt();
-        qDebug() << playlist_index;
+        // qDebug() << playlist_index;
         load_playlist(playlist_index);
     } else {
         // No selection made
         QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
     }
 }
+
+/* TODO:
+ *
+ * Functionality:
+ *  -delete tracks from playlist functionality
+ *  -get user input for what playlist to add to
+ *  -add 'About' section?
+ *
+ * Bugs:
+ *  -be able to delete non-empty playlists
+ *  -adding songs to playlist based on search filter doesn't add the correct songs -- I think i need to
+ *      get selection based on QSqlTableModel not the QTableView
+ */

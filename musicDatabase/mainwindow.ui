@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Search">
      <attribute name="title">
@@ -162,7 +162,7 @@
      <widget class="QPushButton" name="playlistAddButton">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>65</x>
         <y>230</y>
         <width>111</width>
         <height>28</height>
@@ -175,7 +175,7 @@
      <widget class="QPushButton" name="playlistDeleteButton">
       <property name="geometry">
        <rect>
-        <x>256</x>
+        <x>326</x>
         <y>230</y>
         <width>111</width>
         <height>28</height>
@@ -183,19 +183,6 @@
       </property>
       <property name="text">
        <string>Delete</string>
-      </property>
-     </widget>
-     <widget class="QPushButton" name="playlistEditButton">
-      <property name="geometry">
-       <rect>
-        <x>134</x>
-        <y>230</y>
-        <width>111</width>
-        <height>28</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Edit</string>
       </property>
      </widget>
      <widget class="QLabel" name="label">
@@ -214,7 +201,7 @@
      <widget class="QPushButton" name="loadButton">
       <property name="geometry">
        <rect>
-        <x>380</x>
+        <x>195</x>
         <y>230</y>
         <width>111</width>
         <height>28</height>
@@ -243,7 +230,7 @@
      <x>0</x>
      <y>0</y>
      <width>505</width>
-     <height>25</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
