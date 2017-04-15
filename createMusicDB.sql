@@ -284,6 +284,19 @@ $$ DELIMITER ;
 
 
 -- ------------------------------------------------------
+-- Procedure `insert_into_playlist`
+-- ------------------------------------------------------
+DROP PROCEDURE IF EXISTS insert_into_playlist;
+
+DELIMITER $$
+CREATE PROCEDURE insert_into_playlist(playlist_index INT(11), track_index INT(11))
+BEGIN
+	INSERT INTO playlists_has_tracks VALUES(playlist_index, track_index);
+END
+$$ DELIMITER ;
+
+
+-- ------------------------------------------------------
 -- View `table_view`
 -- ------------------------------------------------------
 DROP VIEW IF EXISTS table_view;
@@ -294,6 +307,21 @@ CREATE VIEW table_view AS
 	WHERE artists.artistId = albums.artistId
 	AND tracks.albumId = albums.albumId
     ORDER BY title ASC;
+    
+
+-- ------------------------------------------------------
+-- View `playlist_view`
+-- ------------------------------------------------------
+DROP VIEW IF EXISTS playlist_view;
+
+CREATE VIEW playlist_view AS
+	SELECT tracks.name AS title, artists.name AS artist,
+		albums.name AS album, tracks.trackId AS track_id
+	FROM tracks, artists, albums
+    WHERE artists.artistId = albums.artistId
+    AND tracks.albumId = albums.albumId
+    ORDER BY title ASC;
+
 
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('1', 'Rock');
 INSERT INTO `music`.`genres` (`genreId`, `name`) VALUES ('2', 'Pop');

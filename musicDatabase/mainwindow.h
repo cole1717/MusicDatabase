@@ -30,6 +30,7 @@ private slots:
     void create_playlist(QString playlist_name);
     void edit_playlist(QString playlist_name);
     void delete_playlist(QString playlist_index);
+    void load_playlist(int playlist_index);
 
     void add_to_playlist(QString playlist_index, QString track_id);
 
@@ -41,13 +42,14 @@ private slots:
 
     void on_addToPlaylistButton_clicked();
 
-
+    void on_loadButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     QSqlTableModel *model;
     QSqlTableModel *results;
     QSqlTableModel *playlists;
+    QSqlTableModel *playlist_results;
     QLineEdit *search;
 };
 
