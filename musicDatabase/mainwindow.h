@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "selectplaylist.h"
+
 #include <QMainWindow>
 #include <QSqlTableModel>
 #include <QMessageBox>
@@ -43,6 +45,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    selectPlaylist *selWin;
     QSqlTableModel *model;
     QSqlTableModel *results;
     QSqlTableModel *playlists;

@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "selectplaylist.h"
 
 #include <QtWidgets>
 #include <QSqlQuery>
@@ -11,6 +12,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    // connect(ui->, SIGNAL(click()), this, SLOT(openNewWindow()));
+    // selWin = new selectPlaylist(this);
+    selWin = new selectPlaylist();
+    selWin->setWindowModality(Qt::ApplicationModal);
+    selWin->raise();
 
     // Set up search box
     ui->searchBox->setPlaceholderText("Search...");
@@ -121,28 +128,28 @@ void MainWindow::on_searchButton_clicked()
     // If not empty, search for value
     if (ui->artistRadioButton->isChecked()) {
         query.prepare("SELECT * "
-                      "FROM table_view "
+                      "FROM playlist_view "
                       "WHERE artist LIKE CONCAT ('%', :value, '%') "
                       "ORDER BY album ASC");
         query.bindValue(":value", search_value);
 
     } else if (ui->albumRadioButton->isChecked()) {
         query.prepare("SELECT * "
-                      "FROM table_view "
+                      "FROM playlist_view "
                       "WHERE album LIKE CONCAT ('%', :value, '%') "
                       "ORDER BY album ASC, artist ASC");
         query.bindValue(":value", search_value);
 
     } else if (ui->songRadioButton->isChecked()) {
         query.prepare("SELECT * "
-                      "FROM table_view "
+                      "FROM playlist_view "
                       "WHERE title LIKE CONCAT ('%', :value, '%') "
                       "ORDER BY title ASC");
         query.bindValue(":value", search_value);
 
     } else if (ui->genreRadioButton->isChecked()) {
-        query.prepare("SELECT title, artist, album "
-                      "FROM table_view, albums, genres "
+        query.prepare("SELECT title, artist, album, track_id "
+                      "FROM playlist_view, albums, genres "
                       "WHERE album = albums.name "
                       "AND albums.genreId = genres.genreId "
                       "AND genres.name LIKE CONCAT ('%', :value, '%') "
@@ -222,11 +229,28 @@ void MainWindow::on_playlistDeleteButton_clicked()
 
 void MainWindow::on_addToPlaylistButton_clicked()
 {
-    // TODO: Get user input for playlist
+    selWin->playlists->select();
+    if (playlists->rowCount() < 1) {
+        QMessageBox::warning(this, tr("Warning"), tr("No playlists available!"));
+        return;
+    }
+
     QItemSelectionModel *select = ui->resultsView->selectionModel();
     if (select->hasSelection()) {
+        // get user input
+        selWin->show();
+
+        /* TODO:
+         * Wait for selWin->'Confirm Selection' to be clicked
+         * selWin inherit from QDialog? dialog.exec();?
+         */
+
+        QString playlist_id = selWin->getIndex();
+
+        // selWin->hide();
+
+        // add tracks to playlist
         for(int i = 0; i< select->selectedRows().count(); i++) {
-            QString playlist_id = "2";   // Need to get input from user somehow for what playlist to add to
             QString track_id = select->selectedRows(3).at(i).data().toString();
             // qDebug() << track_id;
             add_to_playlist(playlist_id, track_id);
@@ -298,11 +322,9 @@ void MainWindow::on_loadButton_clicked()
  *
  * Functionality:
  *  -delete tracks from playlist functionality
- *  -get user input for what playlist to add to
+ *  -get user input for what playlist to add to -- working on it
  *  -add 'About' section?
  *
  * Bugs:
  *  -be able to delete non-empty playlists
- *  -adding songs to playlist based on search filter doesn't add the correct songs -- I think i need to
- *      get selection based on QSqlTableModel not the QTableView
  */
