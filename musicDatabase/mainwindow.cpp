@@ -1,6 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "selectplaylist.h"
+#include "selectplaylistdialog.h"
 
 #include <QtWidgets>
 #include <QSqlQuery>
@@ -13,11 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // connect(ui->, SIGNAL(click()), this, SLOT(openNewWindow()));
-    // selWin = new selectPlaylist(this);
-    selWin = new selectPlaylist();
-    selWin->setWindowModality(Qt::ApplicationModal);
-    selWin->raise();
+    selWin = new selectPlaylistDialog();
 
     // Set up search box
     ui->searchBox->setPlaceholderText("Search...");
@@ -57,7 +53,6 @@ MainWindow::MainWindow(QWidget *parent) :
     playlist_results = new QSqlTableModel(this);
     playlist_results->setTable("playlist_view");
     playlist_results->setEditStrategy(QSqlTableModel::OnManualSubmit);
-    //playlist_results->select();
 
     playlist_results->setHeaderData(0, Qt::Horizontal, tr("Title"));
     playlist_results->setHeaderData(1, Qt::Horizontal, tr("Artist"));
@@ -228,7 +223,6 @@ void MainWindow::delete_playlist(QString playlist_index)
 
 void MainWindow::on_playlistDeleteButton_clicked()
 {
-    // TODO: Make it able to delete non-empty playlists
     QItemSelectionModel *select = ui->playlistTableView->selectionModel();
     if (select->hasSelection()) {
         QString index = select->selectedRows().at(0).data().toString();
@@ -251,6 +245,7 @@ void MainWindow::on_playlistDeleteButton_clicked()
     }
 }
 
+// Add selected songs to selected playlist
 void MainWindow::on_addToPlaylistButton_clicked()
 {
     selWin->playlists->select();
@@ -261,17 +256,9 @@ void MainWindow::on_addToPlaylistButton_clicked()
 
     QItemSelectionModel *select = ui->resultsView->selectionModel();
     if (select->hasSelection()) {
-        // get user input
-        selWin->show();
-
-        /* TODO:
-         * Wait for selWin->'Confirm Selection' to be clicked
-         * selWin inherit from QDialog? dialog.exec();?
-         */
-
+        // user choose playlist
+        selWin->exec();
         QString playlist_id = selWin->getIndex();
-
-        // selWin->hide();
 
         // add tracks to playlist
         for(int i = 0; i< select->selectedRows().count(); i++) {
@@ -341,15 +328,6 @@ void MainWindow::on_loadButton_clicked()
         QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
     }
 }
-
-/* TODO:
- *
- * Functionality:
- *  -delete tracks from playlist functionality
- *  -get user input for what playlist to add to -- working on it
- *  -add 'About' section?
- *
- */
 
 void MainWindow::on_actionAbout_triggered()
 {

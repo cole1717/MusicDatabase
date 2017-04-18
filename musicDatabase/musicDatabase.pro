@@ -15,16 +15,16 @@ QTPLUGIN += QSQLMYSQL
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    selectplaylist.cpp
+    selectplaylistdialog.cpp
 
 HEADERS  += mainwindow.h \
     connection.h \
     connector.h \
-    selectplaylist.h \
-    ui_mainwindow.h
+    ui_mainwindow.h \
+    selectplaylistdialog.h
 
 FORMS    += mainwindow.ui \
-    selectplaylist.ui
+    selectplaylistdialog.ui
 
 DISTFILES += \
     PlaylistwindowForm.ui.qml \
