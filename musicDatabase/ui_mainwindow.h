@@ -62,6 +62,7 @@ public:
     QLabel *label;
     QPushButton *loadButton;
     QTableView *playlistResultTableView;
+    QPushButton *deleteTrackButton;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -161,7 +162,10 @@ public:
         loadButton->setGeometry(QRect(270, 230, 101, 31));
         playlistResultTableView = new QTableView(Playlists);
         playlistResultTableView->setObjectName(QStringLiteral("playlistResultTableView"));
-        playlistResultTableView->setGeometry(QRect(10, 270, 621, 351));
+        playlistResultTableView->setGeometry(QRect(10, 270, 621, 311));
+        deleteTrackButton = new QPushButton(Playlists);
+        deleteTrackButton->setObjectName(QStringLiteral("deleteTrackButton"));
+        deleteTrackButton->setGeometry(QRect(470, 590, 161, 31));
         tabWidget->addTab(Playlists, QString());
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
@@ -190,7 +194,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -222,6 +226,7 @@ public:
         playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
         label->setText(QApplication::translate("MainWindow", "Playlists", 0));
         loadButton->setText(QApplication::translate("MainWindow", "Load", 0));
+        deleteTrackButton->setText(QApplication::translate("MainWindow", "Delete from Playlist...", 0));
         tabWidget->setTabText(tabWidget->indexOf(Playlists), QApplication::translate("MainWindow", "Playlists", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));

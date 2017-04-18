@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="Search">
      <attribute name="title">
@@ -230,8 +230,21 @@
         <x>10</x>
         <y>270</y>
         <width>621</width>
-        <height>351</height>
+        <height>311</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="deleteTrackButton">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>590</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Delete from Playlist...</string>
       </property>
      </widget>
     </widget>
