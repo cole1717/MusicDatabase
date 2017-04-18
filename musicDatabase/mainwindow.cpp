@@ -68,6 +68,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tableView->setModel(model);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->tableView->setColumnWidth(0, 250);
+    ui->tableView->setColumnWidth(1, 125);
+    ui->tableView->setColumnWidth(2, 150);
 
     ui->resultsView->setModel(results);
     ui->resultsView->setSortingEnabled(false);
@@ -75,18 +78,26 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->resultsView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->resultsView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     ui->resultsView->setColumnHidden(3, true);
+    ui->resultsView->setColumnWidth(0, 250);
+    ui->resultsView->setColumnWidth(1, 125);
+    ui->resultsView->setColumnWidth(2, 150);
 
     ui->playlistTableView->setModel(playlists);
     ui->playlistTableView->setSortingEnabled(true);
     ui->playlistTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->playlistTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playlistTableView->setSelectionMode(QAbstractItemView::SingleSelection);
+    ui->playlistTableView->setColumnWidth(0, 100);
+    ui->playlistTableView->setColumnWidth(1, 250);
 
     ui->playlistResultTableView->setModel(playlist_results);
     ui->playlistResultTableView->setSortingEnabled(false);
     ui->playlistResultTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->playlistResultTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playlistResultTableView->setColumnHidden(3, true);
+    ui->playlistResultTableView->setColumnWidth(0, 250);
+    ui->playlistResultTableView->setColumnWidth(1, 125);
+    ui->playlistResultTableView->setColumnWidth(2, 150);
 
     // Set title of window
     setWindowTitle(tr("MyMusic Player"));
@@ -224,7 +235,20 @@ void MainWindow::on_playlistDeleteButton_clicked()
         delete_playlist(index);
     }
 
+    // Refresh playlists table view
     playlists->select();
+
+    // Refresh playlists results table view
+    select = ui->playlistTableView->selectionModel();
+    if (select->hasSelection()) {
+        // Get index from selection
+        int playlist_index = select->selectedRows(0).at(0).data().toInt();
+        // qDebug() << playlist_index;
+        load_playlist(playlist_index);
+    } else {
+        // Fill empty table view
+        load_playlist(0);
+    }
 }
 
 void MainWindow::on_addToPlaylistButton_clicked()
@@ -325,6 +349,18 @@ void MainWindow::on_loadButton_clicked()
  *  -get user input for what playlist to add to -- working on it
  *  -add 'About' section?
  *
- * Bugs:
- *  -be able to delete non-empty playlists
  */
+
+void MainWindow::on_actionAbout_triggered()
+{
+    QString filename = "README.txt";
+    QFile file(filename);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+        return;
+
+    QString about = file.readAll();
+
+    file.close();
+
+    QMessageBox::information(this, tr("About"), about);
+}

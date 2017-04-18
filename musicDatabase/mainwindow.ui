@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
-    <height>631</height>
+    <width>679</width>
+    <height>765</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,10 +17,10 @@
    <widget class="QTabWidget" name="tabWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>-2</y>
-      <width>531</width>
-      <height>561</height>
+      <x>10</x>
+      <y>10</y>
+      <width>651</width>
+      <height>661</height>
      </rect>
     </property>
     <property name="currentIndex">
@@ -33,10 +33,10 @@
      <widget class="QPushButton" name="searchButton">
       <property name="geometry">
        <rect>
-        <x>380</x>
-        <y>0</y>
+        <x>540</x>
+        <y>10</y>
         <width>93</width>
-        <height>28</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -46,20 +46,20 @@
      <widget class="QTableView" name="resultsView">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>225</y>
-        <width>501</width>
-        <height>261</height>
+        <x>10</x>
+        <y>350</y>
+        <width>621</width>
+        <height>231</height>
        </rect>
       </property>
      </widget>
      <widget class="QRadioButton" name="songRadioButton">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>2</y>
+        <x>390</x>
+        <y>10</y>
         <width>61</width>
-        <height>20</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -69,10 +69,10 @@
      <widget class="QRadioButton" name="albumRadioButton">
       <property name="geometry">
        <rect>
-        <x>180</x>
-        <y>2</y>
+        <x>310</x>
+        <y>10</y>
         <width>71</width>
-        <height>20</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -82,20 +82,20 @@
      <widget class="QTableView" name="tableView">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>30</y>
-        <width>501</width>
-        <height>191</height>
+        <x>10</x>
+        <y>50</y>
+        <width>621</width>
+        <height>271</height>
        </rect>
       </property>
      </widget>
      <widget class="QRadioButton" name="artistRadioButton">
       <property name="geometry">
        <rect>
-        <x>120</x>
-        <y>2</y>
+        <x>240</x>
+        <y>10</y>
         <width>61</width>
-        <height>20</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -108,10 +108,10 @@
      <widget class="QRadioButton" name="genreRadioButton">
       <property name="geometry">
        <rect>
-        <x>310</x>
-        <y>2</y>
+        <x>460</x>
+        <y>10</y>
         <width>71</width>
-        <height>20</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -121,10 +121,10 @@
      <widget class="QLineEdit" name="searchBox">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>2</y>
-        <width>113</width>
-        <height>22</height>
+        <x>12</x>
+        <y>10</y>
+        <width>211</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -134,14 +134,27 @@
      <widget class="QPushButton" name="addToPlaylistButton">
       <property name="geometry">
        <rect>
-        <x>0</x>
-        <y>487</y>
+        <x>10</x>
+        <y>590</y>
         <width>121</width>
-        <height>28</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
        <string>Add to Playlist...</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>330</y>
+        <width>91</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Search Results</string>
       </property>
      </widget>
     </widget>
@@ -153,19 +166,19 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>20</y>
-        <width>481</width>
-        <height>201</height>
+        <y>30</y>
+        <width>621</width>
+        <height>191</height>
        </rect>
       </property>
      </widget>
      <widget class="QPushButton" name="playlistAddButton">
       <property name="geometry">
        <rect>
-        <x>65</x>
+        <x>90</x>
         <y>230</y>
         <width>111</width>
-        <height>28</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -175,10 +188,10 @@
      <widget class="QPushButton" name="playlistDeleteButton">
       <property name="geometry">
        <rect>
-        <x>326</x>
+        <x>440</x>
         <y>230</y>
         <width>111</width>
-        <height>28</height>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -188,8 +201,8 @@
      <widget class="QLabel" name="label">
       <property name="geometry">
        <rect>
-        <x>12</x>
-        <y>2</y>
+        <x>10</x>
+        <y>10</y>
         <width>131</width>
         <height>16</height>
        </rect>
@@ -201,10 +214,10 @@
      <widget class="QPushButton" name="loadButton">
       <property name="geometry">
        <rect>
-        <x>195</x>
+        <x>270</x>
         <y>230</y>
-        <width>111</width>
-        <height>28</height>
+        <width>101</width>
+        <height>31</height>
        </rect>
       </property>
       <property name="text">
@@ -216,8 +229,8 @@
        <rect>
         <x>10</x>
         <y>270</y>
-        <width>481</width>
-        <height>241</height>
+        <width>621</width>
+        <height>351</height>
        </rect>
       </property>
      </widget>
@@ -229,7 +242,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>505</width>
+     <width>679</width>
      <height>26</height>
     </rect>
    </property>
@@ -237,15 +250,12 @@
     <property name="title">
      <string>File</string>
     </property>
-    <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionHelp"/>
-    <addaction name="separator"/>
     <addaction name="actionAbout"/>
    </widget>
    <addaction name="menuFile"/>

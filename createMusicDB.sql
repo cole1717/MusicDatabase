@@ -96,8 +96,8 @@ CREATE TABLE IF NOT EXISTS `music`.`Playlists_has_Tracks` (
   CONSTRAINT `fk_Playlists_has_Tracks_Playlists1`
     FOREIGN KEY (`playlistId`)
     REFERENCES `music`.`Playlists` (`playlistId`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
   CONSTRAINT `fk_Playlists_has_Tracks_Tracks1`
     FOREIGN KEY (`trackId`)
     REFERENCES `music`.`Tracks` (`trackId`)

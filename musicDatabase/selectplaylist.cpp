@@ -25,6 +25,9 @@ selectPlaylist::selectPlaylist(QWidget *parent) :
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+
+    // Set title of window
+    setWindowTitle(tr("Add to Playlist"));
 }
 
 selectPlaylist::~selectPlaylist()

@@ -14,13 +14,17 @@ TEMPLATE = app
 QTPLUGIN += QSQLMYSQL
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    selectplaylist.cpp
 
 HEADERS  += mainwindow.h \
     connection.h \
-    connector.h
+    connector.h \
+    selectplaylist.h \
+    ui_mainwindow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    selectplaylist.ui
 
 DISTFILES += \
     PlaylistwindowForm.ui.qml \
