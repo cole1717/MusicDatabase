@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     selectplaylistdialog.cpp
 
 HEADERS  += mainwindow.h \
-    connection.h \
     connector.h \
     ui_mainwindow.h \
     selectplaylistdialog.h
@@ -29,3 +28,5 @@ FORMS    += mainwindow.ui \
 DISTFILES += \
     PlaylistwindowForm.ui.qml \
     Playlistwindow.qml
+
+RC_FILE = icon.rc

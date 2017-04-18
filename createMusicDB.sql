@@ -278,7 +278,8 @@ DROP PROCEDURE IF EXISTS delete_playlist;
 DELIMITER $$
 CREATE PROCEDURE delete_playlist(playlist_id INT(11))
 BEGIN
-	DELETE FROM playlists WHERE playlistId = playlist_id;
+	DELETE FROM playlists 
+    WHERE playlistId = playlist_id;
 END
 $$ DELIMITER ;
 
@@ -292,6 +293,21 @@ DELIMITER $$
 CREATE PROCEDURE insert_into_playlist(playlist_index INT(11), track_index INT(11))
 BEGIN
 	INSERT INTO playlists_has_tracks VALUES(playlist_index, track_index);
+END
+$$ DELIMITER ;
+
+
+-- ------------------------------------------------------
+-- Procedure `delete_track`
+-- ------------------------------------------------------
+DROP PROCEDURE IF EXISTS delete_track;
+
+DELIMITER $$
+CREATE PROCEDURE delete_track(playlist_index INT(11), track_index INT(11))
+BEGIN
+	DELETE FROM playlists_has_tracks 
+    WHERE playlist_index = playlistId 
+    AND track_index = trackId;
 END
 $$ DELIMITER ;
 

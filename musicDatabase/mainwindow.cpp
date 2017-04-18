@@ -79,7 +79,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->playlistTableView->setModel(playlists);
     ui->playlistTableView->setSortingEnabled(true);
-    ui->playlistTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+    //ui->playlistTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->playlistTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     ui->playlistTableView->setSelectionMode(QAbstractItemView::SingleSelection);
     ui->playlistTableView->setColumnWidth(0, 100);
@@ -89,6 +89,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->playlistResultTableView->setSortingEnabled(false);
     ui->playlistResultTableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
     ui->playlistResultTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->playlistResultTableView->setSelectionMode(QAbstractItemView::ExtendedSelection);
     ui->playlistResultTableView->setColumnHidden(3, true);
     ui->playlistResultTableView->setColumnWidth(0, 250);
     ui->playlistResultTableView->setColumnWidth(1, 125);
@@ -287,7 +288,7 @@ void MainWindow::load_playlist(int playlist_index)
     playlist_results->select();
 
     QSqlQuery query;
-    query.prepare("SELECT title, artist, album "
+    query.prepare("SELECT title, artist, album, track_id "
                   "FROM playlist_view, playlists_has_tracks "
                   "WHERE playlists_has_tracks.playlistId = :playlist_index "
                   "AND playlists_has_tracks.trackId = track_id");
@@ -321,6 +322,7 @@ void MainWindow::on_loadButton_clicked()
     if (select->hasSelection()) {
         // Get index from selection
         int playlist_index = select->selectedRows(0).at(0).data().toInt();
+        curr_playlist = playlist_index;
         // qDebug() << playlist_index;
         load_playlist(playlist_index);
     } else {
@@ -331,6 +333,7 @@ void MainWindow::on_loadButton_clicked()
 
 void MainWindow::on_actionAbout_triggered()
 {
+    // Open help file
     QString filename = "README.txt";
     QFile file(filename);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -342,3 +345,39 @@ void MainWindow::on_actionAbout_triggered()
 
     QMessageBox::information(this, tr("About"), about);
 }
+
+void MainWindow::delete_track_from_playlist(int track_index, int playlist_index)
+{
+    // Call delete_track procedure
+    QSqlQuery query;
+    query.prepare("CALL delete_track(:playlist, :track)");
+    query.bindValue(":playlist", playlist_index);
+    query.bindValue(":track", track_index);
+    query.exec();
+}
+
+void MainWindow::on_deleteTrackButton_clicked()
+{
+    // Get selected tracks to delete
+    QItemSelectionModel *select = ui->playlistResultTableView->selectionModel();
+    if (select->hasSelection()) {
+        for (int i = 0; i < select->selectedRows().count(); i++) {
+            int track_index = select->selectedRows(3).at(i).data().toInt();
+            delete_track_from_playlist(track_index, curr_playlist);
+        }
+    } else {
+        QMessageBox::warning(this, tr("Warning"), tr("No songs selected!"));
+    }
+
+    // Refresh playlists results table view
+    load_playlist(curr_playlist);
+}
+
+/* TODO:
+ *
+ * Functionality:
+ *  -delete tracks from playlist functionality
+ *  -get user input for what playlist to add to -- working on it
+ *  -add 'About' section?
+ *
+ */

@@ -230,8 +230,21 @@
         <x>10</x>
         <y>270</y>
         <width>621</width>
-        <height>351</height>
+        <height>311</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="deleteTrackButton">
+      <property name="geometry">
+       <rect>
+        <x>470</x>
+        <y>590</y>
+        <width>161</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Delete from Playlist...</string>
       </property>
      </widget>
     </widget>
@@ -299,8 +312,8 @@
   <action name="actionPlay">
    <property name="icon">
     <iconset>
-     <normaloff>play.png</normaloff>
-     <normalon>pause.png</normalon>play.png</iconset>
+     <normaloff>images/play.png</normaloff>
+     <normalon>images/pause.png</normalon>images/play.png</iconset>
    </property>
    <property name="text">
     <string>Play</string>
@@ -309,7 +322,7 @@
   <action name="actionReverse">
    <property name="icon">
     <iconset>
-     <normaloff>rewind.png</normaloff>rewind.png</iconset>
+     <normaloff>images/rewind.png</normaloff>images/rewind.png</iconset>
    </property>
    <property name="text">
     <string>Reverse</string>
@@ -318,7 +331,7 @@
   <action name="actionForward">
    <property name="icon">
     <iconset>
-     <normaloff>fast_forward.png</normaloff>fast_forward.png</iconset>
+     <normaloff>images/fast_forward.png</normaloff>images/fast_forward.png</iconset>
    </property>
    <property name="text">
     <string>Forward</string>
