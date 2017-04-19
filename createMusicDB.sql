@@ -242,22 +242,6 @@ $$ DELIMITER ;
 
 
 -- ------------------------------------------------------
--- Procedure `artist_search`
--- ------------------------------------------------------
-DROP PROCEDURE IF EXISTS artist_search;
-
-DELIMITER $$
-CREATE PROCEDURE artist_search(artist_name VARCHAR(60))
-BEGIN
-	SELECT * 
-    FROM table_view
-    WHERE artist LIKE CONCAT('%', artist_name, '%')
-    ORDER BY album;
-END
-$$ DELIMITER ;
-
-
--- ------------------------------------------------------
 -- Procedure `create_playlist`
 -- ------------------------------------------------------
 DROP PROCEDURE IF EXISTS create_playlist;

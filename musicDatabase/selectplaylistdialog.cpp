@@ -10,6 +10,7 @@ selectPlaylistDialog::selectPlaylistDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    // Link playlists table model to 'playlists' table
     playlists = new QSqlTableModel(this);
     playlists->setTable("playlists");
     playlists->setEditStrategy(QSqlTableModel::OnRowChange);
@@ -19,6 +20,7 @@ selectPlaylistDialog::selectPlaylistDialog(QWidget *parent) :
     playlists->setHeaderData(0, Qt::Horizontal, tr("Index"));
     playlists->setHeaderData(1, Qt::Horizontal, tr("Playlist Name"));
 
+    // Attach playlists model to table view
     ui->tableView->setModel(playlists);
     ui->tableView->setSortingEnabled(true);
     ui->tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -36,14 +38,13 @@ selectPlaylistDialog::~selectPlaylistDialog()
 
 void selectPlaylistDialog::on_confirmSelectionButton_clicked()
 {
-    // playlists->select();
+    // Get selected playlist from tableView
     QItemSelectionModel *select = ui->tableView->selectionModel();
     if (select->hasSelection()) {
         playlistIndex = select->selectedRows(0).at(0).data().toString();
-        // qDebug() << playlistIndex;
         done(1);
     } else {
-            // No selection made
+        // No selection made
         QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
     }
 }

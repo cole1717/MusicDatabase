@@ -13,6 +13,8 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
+#include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
@@ -21,10 +23,12 @@
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QRadioButton>
+#include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QTableView>
 #include <QtWidgets/QToolBar>
+#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -43,26 +47,35 @@ public:
     QAction *actionAbout;
     QAction *actionCreate_Playlist;
     QWidget *centralWidget;
+    QHBoxLayout *horizontalLayout;
     QTabWidget *tabWidget;
     QWidget *Search;
-    QPushButton *searchButton;
+    QVBoxLayout *verticalLayout;
+    QGridLayout *gridLayout;
+    QLabel *label_2;
     QTableView *resultsView;
+    QRadioButton *artistRadioButton;
+    QLineEdit *searchBox;
+    QRadioButton *genreRadioButton;
     QRadioButton *songRadioButton;
     QRadioButton *albumRadioButton;
     QTableView *tableView;
-    QRadioButton *artistRadioButton;
-    QRadioButton *genreRadioButton;
-    QLineEdit *searchBox;
+    QPushButton *searchButton;
     QPushButton *addToPlaylistButton;
-    QLabel *label_2;
     QWidget *Playlists;
-    QTableView *playlistTableView;
+    QVBoxLayout *verticalLayout_3;
+    QGridLayout *gridLayout_2;
+    QSpacerItem *horizontalSpacer_2;
+    QSpacerItem *horizontalSpacer_3;
     QPushButton *playlistAddButton;
-    QPushButton *playlistDeleteButton;
-    QLabel *label;
     QPushButton *loadButton;
-    QTableView *playlistResultTableView;
+    QPushButton *playlistDeleteButton;
+    QSpacerItem *horizontalSpacer;
+    QSpacerItem *horizontalSpacer_4;
     QPushButton *deleteTrackButton;
+    QTableView *playlistTableView;
+    QLabel *label;
+    QTableView *playlistResultTableView;
     QMenuBar *menuBar;
     QMenu *menuFile;
     QMenu *menuHelp;
@@ -73,7 +86,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(679, 765);
+        MainWindow->resize(668, 772);
         actionNew_playlist = new QAction(MainWindow);
         actionNew_playlist->setObjectName(QStringLiteral("actionNew_playlist"));
         actionEdit_playlist = new QAction(MainWindow);
@@ -106,71 +119,148 @@ public:
         actionCreate_Playlist->setObjectName(QStringLiteral("actionCreate_Playlist"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        centralWidget->setEnabled(true);
+        horizontalLayout = new QHBoxLayout(centralWidget);
+        horizontalLayout->setSpacing(6);
+        horizontalLayout->setContentsMargins(11, 11, 11, 11);
+        horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tabWidget->setGeometry(QRect(10, 10, 651, 661));
         Search = new QWidget();
         Search->setObjectName(QStringLiteral("Search"));
-        searchButton = new QPushButton(Search);
-        searchButton->setObjectName(QStringLiteral("searchButton"));
-        searchButton->setGeometry(QRect(540, 10, 93, 31));
-        resultsView = new QTableView(Search);
-        resultsView->setObjectName(QStringLiteral("resultsView"));
-        resultsView->setGeometry(QRect(10, 350, 621, 231));
-        songRadioButton = new QRadioButton(Search);
-        songRadioButton->setObjectName(QStringLiteral("songRadioButton"));
-        songRadioButton->setGeometry(QRect(390, 10, 61, 31));
-        albumRadioButton = new QRadioButton(Search);
-        albumRadioButton->setObjectName(QStringLiteral("albumRadioButton"));
-        albumRadioButton->setGeometry(QRect(310, 10, 71, 31));
-        tableView = new QTableView(Search);
-        tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(10, 50, 621, 271));
-        artistRadioButton = new QRadioButton(Search);
-        artistRadioButton->setObjectName(QStringLiteral("artistRadioButton"));
-        artistRadioButton->setGeometry(QRect(240, 10, 61, 31));
-        artistRadioButton->setChecked(true);
-        genreRadioButton = new QRadioButton(Search);
-        genreRadioButton->setObjectName(QStringLiteral("genreRadioButton"));
-        genreRadioButton->setGeometry(QRect(460, 10, 71, 31));
-        searchBox = new QLineEdit(Search);
-        searchBox->setObjectName(QStringLiteral("searchBox"));
-        searchBox->setGeometry(QRect(12, 10, 211, 31));
-        addToPlaylistButton = new QPushButton(Search);
-        addToPlaylistButton->setObjectName(QStringLiteral("addToPlaylistButton"));
-        addToPlaylistButton->setGeometry(QRect(10, 590, 121, 31));
+        verticalLayout = new QVBoxLayout(Search);
+        verticalLayout->setSpacing(6);
+        verticalLayout->setContentsMargins(11, 11, 11, 11);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        gridLayout = new QGridLayout();
+        gridLayout->setSpacing(6);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
         label_2 = new QLabel(Search);
         label_2->setObjectName(QStringLiteral("label_2"));
-        label_2->setGeometry(QRect(10, 330, 91, 16));
+
+        gridLayout->addWidget(label_2, 2, 0, 1, 1);
+
+        resultsView = new QTableView(Search);
+        resultsView->setObjectName(QStringLiteral("resultsView"));
+
+        gridLayout->addWidget(resultsView, 3, 0, 1, 6);
+
+        artistRadioButton = new QRadioButton(Search);
+        artistRadioButton->setObjectName(QStringLiteral("artistRadioButton"));
+        artistRadioButton->setChecked(true);
+
+        gridLayout->addWidget(artistRadioButton, 0, 1, 1, 1);
+
+        searchBox = new QLineEdit(Search);
+        searchBox->setObjectName(QStringLiteral("searchBox"));
+
+        gridLayout->addWidget(searchBox, 0, 0, 1, 1);
+
+        genreRadioButton = new QRadioButton(Search);
+        genreRadioButton->setObjectName(QStringLiteral("genreRadioButton"));
+
+        gridLayout->addWidget(genreRadioButton, 0, 4, 1, 1);
+
+        songRadioButton = new QRadioButton(Search);
+        songRadioButton->setObjectName(QStringLiteral("songRadioButton"));
+
+        gridLayout->addWidget(songRadioButton, 0, 2, 1, 1);
+
+        albumRadioButton = new QRadioButton(Search);
+        albumRadioButton->setObjectName(QStringLiteral("albumRadioButton"));
+
+        gridLayout->addWidget(albumRadioButton, 0, 3, 1, 1);
+
+        tableView = new QTableView(Search);
+        tableView->setObjectName(QStringLiteral("tableView"));
+
+        gridLayout->addWidget(tableView, 1, 0, 1, 6);
+
+        searchButton = new QPushButton(Search);
+        searchButton->setObjectName(QStringLiteral("searchButton"));
+
+        gridLayout->addWidget(searchButton, 0, 5, 1, 1);
+
+        addToPlaylistButton = new QPushButton(Search);
+        addToPlaylistButton->setObjectName(QStringLiteral("addToPlaylistButton"));
+
+        gridLayout->addWidget(addToPlaylistButton, 4, 4, 1, 2);
+
+
+        verticalLayout->addLayout(gridLayout);
+
         tabWidget->addTab(Search, QString());
         Playlists = new QWidget();
         Playlists->setObjectName(QStringLiteral("Playlists"));
-        playlistTableView = new QTableView(Playlists);
-        playlistTableView->setObjectName(QStringLiteral("playlistTableView"));
-        playlistTableView->setGeometry(QRect(10, 30, 621, 191));
+        verticalLayout_3 = new QVBoxLayout(Playlists);
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setContentsMargins(11, 11, 11, 11);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
+        gridLayout_2 = new QGridLayout();
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_2->addItem(horizontalSpacer_2, 2, 4, 1, 1);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_2->addItem(horizontalSpacer_3, 2, 0, 1, 1);
+
         playlistAddButton = new QPushButton(Playlists);
         playlistAddButton->setObjectName(QStringLiteral("playlistAddButton"));
-        playlistAddButton->setGeometry(QRect(90, 230, 111, 31));
-        playlistDeleteButton = new QPushButton(Playlists);
-        playlistDeleteButton->setObjectName(QStringLiteral("playlistDeleteButton"));
-        playlistDeleteButton->setGeometry(QRect(440, 230, 111, 31));
-        label = new QLabel(Playlists);
-        label->setObjectName(QStringLiteral("label"));
-        label->setGeometry(QRect(10, 10, 131, 16));
+
+        gridLayout_2->addWidget(playlistAddButton, 2, 1, 1, 1);
+
         loadButton = new QPushButton(Playlists);
         loadButton->setObjectName(QStringLiteral("loadButton"));
-        loadButton->setGeometry(QRect(270, 230, 101, 31));
-        playlistResultTableView = new QTableView(Playlists);
-        playlistResultTableView->setObjectName(QStringLiteral("playlistResultTableView"));
-        playlistResultTableView->setGeometry(QRect(10, 270, 621, 311));
+
+        gridLayout_2->addWidget(loadButton, 2, 3, 1, 1);
+
+        playlistDeleteButton = new QPushButton(Playlists);
+        playlistDeleteButton->setObjectName(QStringLiteral("playlistDeleteButton"));
+
+        gridLayout_2->addWidget(playlistDeleteButton, 2, 5, 1, 1);
+
+        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_2->addItem(horizontalSpacer, 2, 2, 1, 1);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        gridLayout_2->addItem(horizontalSpacer_4, 2, 6, 1, 1);
+
         deleteTrackButton = new QPushButton(Playlists);
         deleteTrackButton->setObjectName(QStringLiteral("deleteTrackButton"));
-        deleteTrackButton->setGeometry(QRect(470, 590, 161, 31));
+
+        gridLayout_2->addWidget(deleteTrackButton, 4, 5, 1, 2);
+
+        playlistTableView = new QTableView(Playlists);
+        playlistTableView->setObjectName(QStringLiteral("playlistTableView"));
+
+        gridLayout_2->addWidget(playlistTableView, 1, 0, 1, 7);
+
+        label = new QLabel(Playlists);
+        label->setObjectName(QStringLiteral("label"));
+
+        gridLayout_2->addWidget(label, 0, 0, 1, 1);
+
+        playlistResultTableView = new QTableView(Playlists);
+        playlistResultTableView->setObjectName(QStringLiteral("playlistResultTableView"));
+
+        gridLayout_2->addWidget(playlistResultTableView, 3, 0, 1, 7);
+
+
+        verticalLayout_3->addLayout(gridLayout_2);
+
         tabWidget->addTab(Playlists, QString());
+
+        horizontalLayout->addWidget(tabWidget);
+
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 679, 26));
+        menuBar->setGeometry(QRect(0, 0, 668, 26));
         menuFile = new QMenu(menuBar);
         menuFile->setObjectName(QStringLiteral("menuFile"));
         menuHelp = new QMenu(menuBar);
@@ -213,20 +303,20 @@ public:
         actionHelp->setText(QApplication::translate("MainWindow", "View help", 0));
         actionAbout->setText(QApplication::translate("MainWindow", "About", 0));
         actionCreate_Playlist->setText(QApplication::translate("MainWindow", "Create Playlist", 0));
-        searchButton->setText(QApplication::translate("MainWindow", "Search", 0));
+        label_2->setText(QApplication::translate("MainWindow", "Search Results", 0));
+        artistRadioButton->setText(QApplication::translate("MainWindow", "Artist", 0));
+        searchBox->setText(QString());
+        genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", 0));
         songRadioButton->setText(QApplication::translate("MainWindow", "Song", 0));
         albumRadioButton->setText(QApplication::translate("MainWindow", "Album", 0));
-        artistRadioButton->setText(QApplication::translate("MainWindow", "Artist", 0));
-        genreRadioButton->setText(QApplication::translate("MainWindow", "Genre", 0));
-        searchBox->setText(QString());
+        searchButton->setText(QApplication::translate("MainWindow", "Search", 0));
         addToPlaylistButton->setText(QApplication::translate("MainWindow", "Add to Playlist...", 0));
-        label_2->setText(QApplication::translate("MainWindow", "Search Results", 0));
         tabWidget->setTabText(tabWidget->indexOf(Search), QApplication::translate("MainWindow", "Search", 0));
         playlistAddButton->setText(QApplication::translate("MainWindow", "Add", 0));
-        playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
-        label->setText(QApplication::translate("MainWindow", "Playlists", 0));
         loadButton->setText(QApplication::translate("MainWindow", "Load", 0));
+        playlistDeleteButton->setText(QApplication::translate("MainWindow", "Delete", 0));
         deleteTrackButton->setText(QApplication::translate("MainWindow", "Delete from Playlist...", 0));
+        label->setText(QApplication::translate("MainWindow", "Playlists", 0));
         tabWidget->setTabText(tabWidget->indexOf(Playlists), QApplication::translate("MainWindow", "Playlists", 0));
         menuFile->setTitle(QApplication::translate("MainWindow", "File", 0));
         menuHelp->setTitle(QApplication::translate("MainWindow", "Help", 0));

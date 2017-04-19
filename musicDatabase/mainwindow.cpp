@@ -126,12 +126,14 @@ void MainWindow::on_searchButton_clicked()
 {
     QSqlQuery query;
     QString search_value = ui->searchBox->text();
+
     // Check to make sure search_value is not empty
     if (search_value.isEmpty()) {
         QMessageBox::warning(this, tr("Warning"),
                              tr("Please enter a search value!"));
         return;
     }
+
     // If not empty, search for value
     if (ui->artistRadioButton->isChecked()) {
         query.prepare("SELECT * "
@@ -194,6 +196,7 @@ void MainWindow::on_searchButton_clicked()
 void MainWindow::create_playlist(QString playlist_name)
 {
     QSqlQuery query;
+
     // Call prepared statement `create_playlist`
     query.prepare("CALL create_playlist(:playlist)");
     query.bindValue(":playlist", playlist_name);
@@ -216,6 +219,7 @@ void MainWindow::on_playlistAddButton_clicked()
 void MainWindow::delete_playlist(QString playlist_index)
 {
     QSqlQuery query;
+
     // Call prepared statement `delete_playlist`
     query.prepare("CALL delete_playlist(:index)");
     query.bindValue(":index", playlist_index);
@@ -238,7 +242,6 @@ void MainWindow::on_playlistDeleteButton_clicked()
     if (select->hasSelection()) {
         // Get index from selection
         int playlist_index = select->selectedRows(0).at(0).data().toInt();
-        // qDebug() << playlist_index;
         load_playlist(playlist_index);
     } else {
         // Fill empty table view
@@ -257,31 +260,33 @@ void MainWindow::on_addToPlaylistButton_clicked()
 
     QItemSelectionModel *select = ui->resultsView->selectionModel();
     if (select->hasSelection()) {
-        // user choose playlist
+        // User choose playlist
         selWin->exec();
         QString playlist_id = selWin->getIndex();
 
-        // add tracks to playlist
+        // Add tracks to playlist
         for(int i = 0; i< select->selectedRows().count(); i++) {
             QString track_id = select->selectedRows(3).at(i).data().toString();
-            // qDebug() << track_id;
             add_to_playlist(playlist_id, track_id);
         }
     } else {
-            // No selection made
-            QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
+        // No selection made
+        QMessageBox::warning(this, tr("Warning"), tr("No selection made!"));
     }
 }
 
 void MainWindow::add_to_playlist(QString playlist_index, QString track_index)
 {
     QSqlQuery query;
+
+    // Call prepared statement `insert_into_playlist`
     query.prepare("CALL insert_into_playlist(:playlist, :track)");
     query.bindValue(":playlist", playlist_index);
     query.bindValue(":track", track_index);
     query.exec();
 }
 
+// Load songs in playlist
 void MainWindow::load_playlist(int playlist_index)
 {
     // Populate tableview
@@ -323,7 +328,6 @@ void MainWindow::on_loadButton_clicked()
         // Get index from selection
         int playlist_index = select->selectedRows(0).at(0).data().toInt();
         curr_playlist = playlist_index;
-        // qDebug() << playlist_index;
         load_playlist(playlist_index);
     } else {
         // No selection made
@@ -331,6 +335,7 @@ void MainWindow::on_loadButton_clicked()
     }
 }
 
+// Open about page
 void MainWindow::on_actionAbout_triggered()
 {
     // Open help file
@@ -343,13 +348,16 @@ void MainWindow::on_actionAbout_triggered()
 
     file.close();
 
+    // Display message box with about information in it
     QMessageBox::information(this, tr("About"), about);
 }
 
+// Delete selected song from playlist
 void MainWindow::delete_track_from_playlist(int track_index, int playlist_index)
 {
-    // Call delete_track procedure
     QSqlQuery query;
+
+    // Call prepared statement `delete_track`
     query.prepare("CALL delete_track(:playlist, :track)");
     query.bindValue(":playlist", playlist_index);
     query.bindValue(":track", track_index);
@@ -372,12 +380,3 @@ void MainWindow::on_deleteTrackButton_clicked()
     // Refresh playlists results table view
     load_playlist(curr_playlist);
 }
-
-/* TODO:
- *
- * Functionality:
- *  -delete tracks from playlist functionality
- *  -get user input for what playlist to add to -- working on it
- *  -add 'About' section?
- *
- */

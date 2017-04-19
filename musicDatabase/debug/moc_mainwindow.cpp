@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created by: The Qt Meta Object Compiler version 67 (Qt 5.7.1)
+** Created by: The Qt Meta Object Compiler version 67 (Qt 5.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
@@ -12,7 +12,7 @@
 #if !defined(Q_MOC_OUTPUT_REVISION)
 #error "The header file 'mainwindow.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 67
-#error "This file was generated using the moc from 5.7.1. It"
+#error "This file was generated using the moc from 5.7.0. It"
 #error "cannot be used with the include files from this version of Qt."
 #error "(The moc has changed too much.)"
 #endif
@@ -33,14 +33,14 @@ QT_MOC_LITERAL(0, 0, 10), // "MainWindow"
 QT_MOC_LITERAL(1, 11, 23), // "on_actionExit_triggered"
 QT_MOC_LITERAL(2, 35, 0), // ""
 QT_MOC_LITERAL(3, 36, 6), // "submit"
-QT_MOC_LITERAL(4, 43, 23), // "on_searchButton_clicked"
-QT_MOC_LITERAL(5, 67, 15), // "create_playlist"
-QT_MOC_LITERAL(6, 83, 13), // "playlist_name"
-QT_MOC_LITERAL(7, 97, 15), // "delete_playlist"
-QT_MOC_LITERAL(8, 113, 14), // "playlist_index"
-QT_MOC_LITERAL(9, 128, 13), // "load_playlist"
-QT_MOC_LITERAL(10, 142, 26), // "delete_track_from_playlist"
-QT_MOC_LITERAL(11, 169, 11), // "track_index"
+QT_MOC_LITERAL(4, 43, 15), // "create_playlist"
+QT_MOC_LITERAL(5, 59, 13), // "playlist_name"
+QT_MOC_LITERAL(6, 73, 15), // "delete_playlist"
+QT_MOC_LITERAL(7, 89, 14), // "playlist_index"
+QT_MOC_LITERAL(8, 104, 13), // "load_playlist"
+QT_MOC_LITERAL(9, 118, 26), // "delete_track_from_playlist"
+QT_MOC_LITERAL(10, 145, 11), // "track_index"
+QT_MOC_LITERAL(11, 157, 23), // "on_searchButton_clicked"
 QT_MOC_LITERAL(12, 181, 15), // "add_to_playlist"
 QT_MOC_LITERAL(13, 197, 8), // "track_id"
 QT_MOC_LITERAL(14, 206, 28), // "on_playlistAddButton_clicked"
@@ -52,11 +52,11 @@ QT_MOC_LITERAL(19, 345, 28) // "on_deleteTrackButton_clicked"
 
     },
     "MainWindow\0on_actionExit_triggered\0\0"
-    "submit\0on_searchButton_clicked\0"
-    "create_playlist\0playlist_name\0"
+    "submit\0create_playlist\0playlist_name\0"
     "delete_playlist\0playlist_index\0"
     "load_playlist\0delete_track_from_playlist\0"
-    "track_index\0add_to_playlist\0track_id\0"
+    "track_index\0on_searchButton_clicked\0"
+    "add_to_playlist\0track_id\0"
     "on_playlistAddButton_clicked\0"
     "on_playlistDeleteButton_clicked\0"
     "on_addToPlaylistButton_clicked\0"
@@ -81,11 +81,11 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: name, argc, parameters, tag, flags
        1,    0,   84,    2, 0x08 /* Private */,
        3,    0,   85,    2, 0x08 /* Private */,
-       4,    0,   86,    2, 0x08 /* Private */,
-       5,    1,   87,    2, 0x08 /* Private */,
-       7,    1,   90,    2, 0x08 /* Private */,
-       9,    1,   93,    2, 0x08 /* Private */,
-      10,    2,   96,    2, 0x08 /* Private */,
+       4,    1,   86,    2, 0x08 /* Private */,
+       6,    1,   89,    2, 0x08 /* Private */,
+       8,    1,   92,    2, 0x08 /* Private */,
+       9,    2,   95,    2, 0x08 /* Private */,
+      11,    0,  100,    2, 0x08 /* Private */,
       12,    2,  101,    2, 0x08 /* Private */,
       14,    0,  106,    2, 0x08 /* Private */,
       15,    0,  107,    2, 0x08 /* Private */,
@@ -97,12 +97,12 @@ static const uint qt_meta_data_MainWindow[] = {
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
+    QMetaType::Void, QMetaType::QString,    5,
+    QMetaType::Void, QMetaType::QString,    7,
+    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void, QMetaType::Int, QMetaType::Int,   10,    7,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString,    6,
-    QMetaType::Void, QMetaType::QString,    8,
-    QMetaType::Void, QMetaType::Int,    8,
-    QMetaType::Void, QMetaType::Int, QMetaType::Int,   11,    8,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString,    8,   13,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString,    7,   13,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -121,11 +121,11 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         switch (_id) {
         case 0: _t->on_actionExit_triggered(); break;
         case 1: _t->submit(); break;
-        case 2: _t->on_searchButton_clicked(); break;
-        case 3: _t->create_playlist((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 4: _t->delete_playlist((*reinterpret_cast< QString(*)>(_a[1]))); break;
-        case 5: _t->load_playlist((*reinterpret_cast< int(*)>(_a[1]))); break;
-        case 6: _t->delete_track_from_playlist((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 2: _t->create_playlist((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 3: _t->delete_playlist((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 4: _t->load_playlist((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 5: _t->delete_track_from_playlist((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
+        case 6: _t->on_searchButton_clicked(); break;
         case 7: _t->add_to_playlist((*reinterpret_cast< QString(*)>(_a[1])),(*reinterpret_cast< QString(*)>(_a[2]))); break;
         case 8: _t->on_playlistAddButton_clicked(); break;
         case 9: _t->on_playlistDeleteButton_clicked(); break;

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'selectplaylistdialog.ui'
 **
-** Created by: Qt User Interface Compiler version 5.7.1
+** Created by: Qt User Interface Compiler version 5.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
@@ -14,15 +14,19 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QDialog>
+#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
 #include <QtWidgets/QTableView>
+#include <QtWidgets/QVBoxLayout>
 
 QT_BEGIN_NAMESPACE
 
 class Ui_selectPlaylistDialog
 {
 public:
+    QVBoxLayout *verticalLayout;
+    QFormLayout *formLayout;
     QTableView *tableView;
     QPushButton *confirmSelectionButton;
 
@@ -30,13 +34,25 @@ public:
     {
         if (selectPlaylistDialog->objectName().isEmpty())
             selectPlaylistDialog->setObjectName(QStringLiteral("selectPlaylistDialog"));
-        selectPlaylistDialog->resize(281, 267);
+        selectPlaylistDialog->resize(322, 263);
+        verticalLayout = new QVBoxLayout(selectPlaylistDialog);
+        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        formLayout = new QFormLayout();
+        formLayout->setObjectName(QStringLiteral("formLayout"));
         tableView = new QTableView(selectPlaylistDialog);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(6, 10, 271, 221));
+
+        formLayout->setWidget(0, QFormLayout::SpanningRole, tableView);
+
         confirmSelectionButton = new QPushButton(selectPlaylistDialog);
         confirmSelectionButton->setObjectName(QStringLiteral("confirmSelectionButton"));
-        confirmSelectionButton->setGeometry(QRect(147, 235, 131, 28));
+        confirmSelectionButton->setLayoutDirection(Qt::RightToLeft);
+
+        formLayout->setWidget(1, QFormLayout::LabelRole, confirmSelectionButton);
+
+
+        verticalLayout->addLayout(formLayout);
+
 
         retranslateUi(selectPlaylistDialog);
 
@@ -45,8 +61,8 @@ public:
 
     void retranslateUi(QDialog *selectPlaylistDialog)
     {
-        selectPlaylistDialog->setWindowTitle(QApplication::translate("selectPlaylistDialog", "Dialog", Q_NULLPTR));
-        confirmSelectionButton->setText(QApplication::translate("selectPlaylistDialog", "Confirm Selection", Q_NULLPTR));
+        selectPlaylistDialog->setWindowTitle(QApplication::translate("selectPlaylistDialog", "Dialog", 0));
+        confirmSelectionButton->setText(QApplication::translate("selectPlaylistDialog", "Confirm Selection", 0));
     } // retranslateUi
 
 };
